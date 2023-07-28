@@ -5,9 +5,10 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MaterialModule } from './shared/modules/material/material.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { BoardComponent } from './components/board/board.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, BoardComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

@@ -1,0 +1,46 @@
+<div class="board">
+  <!-- <div *ngFor="let item of [].constructor(boardWidth); let i = index">
+    <div
+      *ngFor="let item of [].constructor(boardHeight); let j = index"
+      class="board-hole"
+      [ngStyle]="{ 'grid-column-start': i, 'grid-row-start': j, color: 'red' }"
+    >
+      ({{ i }}, {{ j }})
+    </div>
+  </div> -->
+
+  <div
+    *ngFor="let item of [].constructor(boardWidth * boardHeight); let i = index"
+    class="board-hole"
+    [style]="getCellStyle(i)"
+  ></div>
+  <!-- <div class="board-hole"></div>
+  <div class="board-hole"></div>
+  <div class="board-hole"></div>
+  <div class="board-hole"></div>
+  <div class="board-hole"></div>
+
+  <div class="board-hole"></div>
+  <div class="board-hole"></div>
+  <div class="board-hole"></div>
+  <div class="board-hole"></div>
+  <div class="board-hole"></div>
+
+  <div class="board-hole"></div>
+  <div class="board-hole"></div>
+  <div class="board-hole"></div>
+  <div class="board-hole"></div>
+  <div class="board-hole"></div>
+
+  <div class="board-hole"></div>
+  <div class="board-hole"></div>
+  <div class="board-hole"></div>
+  <div class="board-hole"></div>
+  <div class="board-hole"></div>
+
+  <div class="board-hole"></div>
+  <div class="board-hole"></div>
+  <div class="board-hole"></div>
+  <div class="board-hole"></div>
+  <div class="board-hole"></div> -->
+</div>
