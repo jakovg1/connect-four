@@ -11,30 +11,28 @@ export class BoardComponent implements OnInit {
   public boardWidth = BOARD_WIDTH;
   public boardHeight = BOARD_HEIGHT;
 
+  public gridTemplateCss = {
+    'grid-template-columns': 'auto '.repeat(BOARD_WIDTH),
+  };
+
   public board: BoardCell[][] = [];
 
   public ngOnInit(): void {
     this.board = new Array(BOARD_WIDTH)
       .fill(BoardCell.Empty)
       .map(() => new Array(BOARD_HEIGHT).fill(BoardCell.Empty));
-    this.board[1][4] = BoardCell.Player2;
-    this.board[2][3] = BoardCell.Player1;
-    this.board[0][2] = BoardCell.Player1;
+
     console.log(this.board);
-
-    // debugger;
-    // const argh = 2 % 7;
-    // const argh = this.getBoardPosition(1);
-
-    for (let i = 0; i < 42; i++) {
-      debugger;
-      console.log('CALC FOR', i, this.getBoardPosition(i));
-    }
+    this.addTokenToColumn(BoardCell.Player1, 0);
+    this.addTokenToColumn(BoardCell.Player2, 0);
+    this.addTokenToColumn(BoardCell.Player2, 0);
+    this.addTokenToColumn(BoardCell.Player2, 1);
+    console.log(this.board);
   }
 
   public getCellStyle(index: number): any {
     debugger;
-    console.log(index);
+    // console.log(index);
     const boardCell = this.getBoardPosition(index);
 
     switch (boardCell) {
@@ -43,13 +41,24 @@ export class BoardComponent implements OnInit {
       case BoardCell.Player2:
         return { 'background-color': 'red' };
       default:
-        return { 'background-color': 'teal' };
+        return {};
     }
   }
 
   public getBoardPosition(index: number) {
-    return this.board[BOARD_WIDTH - 1 - Math.floor(index / BOARD_WIDTH)][
-      index % BOARD_HEIGHT
-    ];
+    const xCoordinate = index % BOARD_WIDTH;
+    const yCoordinate = BOARD_HEIGHT - 1 - Math.floor(index / BOARD_WIDTH);
+
+    // console.log('CALC FOR', index, ' -> ', xCoordinate, yCoordinate);
+    return this.board[xCoordinate][yCoordinate];
+  }
+
+  public addTokenToColumn(tokenToAdd: BoardCell, column: number) {
+    for (let i = 0; i < BOARD_HEIGHT; i++) {
+      if (this.board[column][i] == BoardCell.Empty) {
+        this.board[column][i] = tokenToAdd;
+        break;
+      }
+    }
   }
 }
