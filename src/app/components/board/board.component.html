@@ -1,46 +1,16 @@
-<div class="board" [style]="gridTemplateCss">
-  <!-- <div *ngFor="let item of [].constructor(boardWidth); let i = index">
-    <div
-      *ngFor="let item of [].constructor(boardHeight); let j = index"
-      class="board-hole"
-      [ngStyle]="{ 'grid-column-start': i, 'grid-row-start': j, color: 'red' }"
-    >
-      ({{ i }}, {{ j }})
-    </div>
-  </div> -->
-
+<div class="board">
   <div
-    *ngFor="let item of [].constructor(boardWidth * boardHeight); let i = index"
-    class="board-hole"
-    [style]="getCellStyle(i)"
-  ></div>
-  <!-- <div class="board-hole"></div>
-  <div class="board-hole"></div>
-  <div class="board-hole"></div>
-  <div class="board-hole"></div>
-  <div class="board-hole"></div>
-
-  <div class="board-hole"></div>
-  <div class="board-hole"></div>
-  <div class="board-hole"></div>
-  <div class="board-hole"></div>
-  <div class="board-hole"></div>
-
-  <div class="board-hole"></div>
-  <div class="board-hole"></div>
-  <div class="board-hole"></div>
-  <div class="board-hole"></div>
-  <div class="board-hole"></div>
-
-  <div class="board-hole"></div>
-  <div class="board-hole"></div>
-  <div class="board-hole"></div>
-  <div class="board-hole"></div>
-  <div class="board-hole"></div>
-
-  <div class="board-hole"></div>
-  <div class="board-hole"></div>
-  <div class="board-hole"></div>
-  <div class="board-hole"></div>
-  <div class="board-hole"></div> -->
+    class="board-column"
+    *ngFor="let column of [].constructor(boardWidth); let columnIndex = index"
+    (click)="addTokenToColumn(columnIndex)"
+  >
+    <div
+      class="board-hole"
+      *ngFor="
+        let boardHole of [].constructor(boardHeight);
+        let rowIndex = index
+      "
+      [style]="getCellStyle(columnIndex, rowIndex)"
+    ></div>
+  </div>
 </div>
