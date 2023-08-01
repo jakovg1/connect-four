@@ -13,10 +13,6 @@ export class BoardComponent implements OnInit {
 
   public turnOfPlayer: BoardCell = BoardCell.Player1;
 
-  public gridTemplateCss = {
-    'grid-template-columns': 'auto '.repeat(BOARD_WIDTH),
-  };
-
   public board: BoardCell[][] = [];
 
   constructor(private cdk: ChangeDetectorRef) {}
