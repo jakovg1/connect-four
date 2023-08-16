@@ -15,7 +15,7 @@ export class BoardComponent implements OnInit {
 
   public board: BoardCell[][] = [];
 
-  constructor(private cdk: ChangeDetectorRef) {}
+  constructor(private cdk: ChangeDetectorRef) { }
 
   public ngOnInit(): void {
     this.resetGame();
@@ -25,9 +25,9 @@ export class BoardComponent implements OnInit {
     const boardCell = this.board[columnIndex][rowIndex];
     switch (boardCell) {
       case BoardCell.Player1:
-        return { 'background-color': 'blue' };
+        return { 'background-color': 'rgb(62, 138, 201)' };
       case BoardCell.Player2:
-        return { 'background-color': 'red' };
+        return { 'background-color': 'rgb(201, 97, 62)' };
       default:
         return {};
     }
@@ -56,6 +56,14 @@ export class BoardComponent implements OnInit {
     //Computer's turn -> refactor this code later on
     const computersMove = 0;
     this.addTokenToColumn(computersMove, this.turnOfPlayer);
+  }
+
+  public getColumnHeight(column: number): number {
+    if (column < 0 || column > BOARD_WIDTH - 1) throw new Error("Invalid column index!");
+    for (let i = 0; i < BOARD_HEIGHT; i++) {
+      if (this.board[column][i] == BoardCell.Empty) return i;
+    }
+    return BOARD_HEIGHT;
   }
 
   private checkForEndOfGame(columnIndex: number, rowIndex: number): void {
@@ -113,7 +121,7 @@ export class BoardComponent implements OnInit {
       if (
         this.turnOfPlayer !==
         this.board[columnIndex + horizontalIncrement * i][
-          rowIndex + verticaIncrement * i
+        rowIndex + verticaIncrement * i
         ]
       ) {
         break;
