@@ -51,6 +51,11 @@ export class BoardComponent implements OnInit {
     }
 
     this.toggleTurn();
+
+    if (this.turnOfPlayer == BoardCell.Player1) return;
+    //Computer's turn -> refactor this code later on
+    const computersMove = 0;
+    this.addTokenToColumn(computersMove, this.turnOfPlayer);
   }
 
   private checkForEndOfGame(columnIndex: number, rowIndex: number): void {
@@ -59,38 +64,42 @@ export class BoardComponent implements OnInit {
     const shouldSearchLeft = columnIndex >= WINNING_STREAK - 1;
     const shouldSearchRight = BOARD_WIDTH - columnIndex >= WINNING_STREAK;
 
-    if (shouldSearchDown) {
-      // search down
-      this.checkInDirection(columnIndex, rowIndex, -1, 0);
+    try {
+      if (shouldSearchDown) {
+        // search down
+        this.checkInDirection(columnIndex, rowIndex, -1, 0);
+        if (shouldSearchLeft) {
+          // search down left diagonal
+          this.checkInDirection(columnIndex, rowIndex, -1, -1);
+        }
+        if (shouldSearchRight) {
+          // search down right diagonal
+          this.checkInDirection(columnIndex, rowIndex, -1, 1);
+        }
+      }
+
+      if (shouldSearchUp) {
+        // search up left diagonal
+        if (shouldSearchLeft) {
+          this.checkInDirection(columnIndex, rowIndex, 1, -1);
+        }
+        if (shouldSearchRight) {
+          // search up right diagonal
+          this.checkInDirection(columnIndex, rowIndex, 1, 1);
+        }
+      }
+
+      // search left
       if (shouldSearchLeft) {
-        // search down left diagonal
-        this.checkInDirection(columnIndex, rowIndex, -1, -1);
+        this.checkInDirection(columnIndex, rowIndex, 0, -1);
       }
+
+      // search right
       if (shouldSearchRight) {
-        // search down right diagonal
-        this.checkInDirection(columnIndex, rowIndex, -1, 1);
+        this.checkInDirection(columnIndex, rowIndex, 0, 1);
       }
-    }
-
-    if (shouldSearchUp) {
-      // search up left diagonal
-      if (shouldSearchLeft) {
-        this.checkInDirection(columnIndex, rowIndex, 1, -1);
-      }
-      if (shouldSearchRight) {
-        // search up right diagonal
-        this.checkInDirection(columnIndex, rowIndex, 1, 1);
-      }
-    }
-
-    // search left
-    if (shouldSearchLeft) {
-      this.checkInDirection(columnIndex, rowIndex, 0, -1);
-    }
-
-    // search right
-    if (shouldSearchRight) {
-      this.checkInDirection(columnIndex, rowIndex, 0, 1);
+    } catch (exception) {
+      this.announceEndOfGame(this.turnOfPlayer);
     }
   }
 
@@ -109,7 +118,7 @@ export class BoardComponent implements OnInit {
       ) {
         break;
       }
-      if (i == WINNING_STREAK - 1) this.announceEndOfGame(this.turnOfPlayer);
+      if (i == WINNING_STREAK - 1) throw new Error('End of game :)');
     }
   }
 
