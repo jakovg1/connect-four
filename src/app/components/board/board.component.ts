@@ -23,6 +23,8 @@ export class BoardComponent implements OnInit {
 
   public board: BoardCell[][] = [];
 
+  private computerIsPlaying: boolean = false;
+
   constructor(private cdk: ChangeDetectorRef) {}
 
   public ngOnInit(): void {
@@ -47,13 +49,18 @@ export class BoardComponent implements OnInit {
     return this.board[xCoordinate][yCoordinate];
   }
 
-  public addTokenToColumn(column: number, tokenToAdd?: BoardCell) {
+  public player1AddToken(column: number): void {
+    if (this.computerIsPlaying) return;
+    this.addTokenToColumn(column, BoardCell.Player1);
+  }
+
+  public addTokenToColumn(column: number, tokenToAdd?: BoardCell): void {
     if (!tokenToAdd) tokenToAdd = this.turnOfPlayer;
     if (column < 0 || column > BOARD_WIDTH - 1) return;
     for (let i = 0; i < BOARD_HEIGHT; i++) {
       if (this.board[column][i] == BoardCell.Empty) {
         this.board[column][i] = tokenToAdd;
-        this.checkForEndOfGame(column, i);
+        if (this.checkForEndOfGame(column, i)) return;
         break;
       }
     }
@@ -61,9 +68,14 @@ export class BoardComponent implements OnInit {
     this.toggleTurn();
 
     if (this.turnOfPlayer == BoardCell.Player1) return;
+
     //Computer's turn -> refactor this code later on
+    this.computerIsPlaying = true;
     const computersMove = 0;
-    this.addTokenToColumn(computersMove, this.turnOfPlayer);
+    setTimeout(() => {
+      this.addTokenToColumn(computersMove, this.turnOfPlayer);
+      this.computerIsPlaying = false;
+    }, 500);
   }
 
   public getColumnHeight(column: number): number {
@@ -83,7 +95,7 @@ export class BoardComponent implements OnInit {
     this.turnOfPlayer = BoardCell.Player1;
   }
 
-  private checkForEndOfGame(columnIndex: number, rowIndex: number): void {
+  private checkForEndOfGame(columnIndex: number, rowIndex: number): boolean {
     const shouldSearchUp = BOARD_HEIGHT - rowIndex >= WINNING_STREAK;
     const shouldSearchDown = rowIndex >= WINNING_STREAK - 1;
     const shouldSearchLeft = columnIndex >= WINNING_STREAK - 1;
@@ -125,7 +137,9 @@ export class BoardComponent implements OnInit {
       }
     } catch (exception) {
       this.announceEndOfGame(this.turnOfPlayer);
+      return true;
     }
+    return false;
   }
 
   private checkInDirection(
@@ -157,10 +171,9 @@ export class BoardComponent implements OnInit {
   }
 
   private toggleTurn(): void {
-    if (this.turnOfPlayer == BoardCell.Player1) {
-      this.turnOfPlayer = BoardCell.Player2;
-      return;
-    }
-    this.turnOfPlayer = BoardCell.Player1;
+    this.turnOfPlayer =
+      this.turnOfPlayer === BoardCell.Player1
+        ? BoardCell.Player2
+        : BoardCell.Player1;
   }
 }

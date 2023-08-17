@@ -2,7 +2,7 @@
   <div
     class="board-column"
     *ngFor="let column of [].constructor(boardWidth); let columnIndex = index"
-    (click)="addTokenToColumn(columnIndex)"
+    (click)="player1AddToken(columnIndex)"
   >
     <!-- <div class="column-container" style="background-color: brown"> -->
     <div class="column-container">
