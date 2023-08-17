@@ -1,13 +1,12 @@
 .board {
-  position: relative;
   height: 90vh;
   width: 70vw;
   border-radius: 20px 20px 0px 0px;
 
   background-color: rgb(49, 47, 47);
   margin-top: 10vh;
-  justify-content: space-evenly;
   display: flex;
+  justify-content: space-evenly;
 }
 
 .board-column {
@@ -40,20 +39,37 @@
 }
 
 .board-hole {
-  bottom: 0px;
+  // bottom: 0px;
   background-color: rgb(100, 100, 100);
-  width: 12vh;
-  height: 12vh;
-  // margin: 4px;
+  // height: 80px;
+  // width: 80px;
+
+  // width: 12vh;
+  // height: 12vh;
+
+  min-width: 11vh;
+  max-width: 11vh;
+  min-height: 11vh;
+  max-height: 11vh;
+
+  margin: 4px;
   border-radius: 100%;
 }
 
 .board-token {
-  bottom: 0px;
+  // bottom: 0px;
   background-color: rgb(100, 100, 100);
-  background-color: green;
-  width: 12vh;
-  height: 12vh;
-  // margin: 4px;
+
+  // height: 80px;
+  // width: 80px;
+
+  min-width: 11vh;
+  max-width: 11vh;
+  min-height: 11vh;
+  max-height: 11vh;
+
+  // width: 12vh;
+  // height: 12vh;
+  margin: 4px;
   border-radius: 100%;
 }

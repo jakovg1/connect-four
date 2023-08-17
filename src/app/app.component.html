@@ -1,3 +1,7 @@
 <div class="background">
-  <app-board></app-board>
+  <app-board (endGame)="this.menuActive = true"></app-board>
+</div>
+
+<div class="menu" [class.hidden]="!menuActive">
+  <div class="menu-item" (click)="newGame()">New Game</div>
 </div>

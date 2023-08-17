@@ -2,6 +2,7 @@
   margin: 0px;
   padding: 0px;
   background-color: rgb(100, 100, 100);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .background {
@@ -13,4 +14,46 @@
 
   width: 100%;
   height: 100%;
+}
+
+.menu {
+  position: absolute;
+  left: 0px;
+  top: 0px;
+
+  height: 100%;
+  width: 100%;
+  background-color: rgba(37, 37, 37, 1); //opacity?
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  transition: opacity 1000ms;
+}
+
+.hidden {
+  display: none;
+  opacity: 0;
+  // background-color: red;
+}
+
+.menu-item {
+  background-color: rgb(148, 148, 148);
+  width: 30vw;
+  height: 15vh;
+  border-radius: 4px;
+
+  font-size: x-large;
+  font-weight: bold;
+  display: flex;
+  // text-align: center;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 200ms;
+
+  &:hover {
+    cursor: pointer;
+    background-color: rgb(224, 225, 227);
+  }
 }
