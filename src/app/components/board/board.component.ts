@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { BOARD_HEIGHT, BOARD_WIDTH, WINNING_STREAK } from './board.constants';
 import { BoardCell } from './board.model';
-import { getRandomNumberInRange } from 'src/app/utils';
+import { getRandomNumberInRange } from 'src/app/utility/utils';
 
 @Component({
   selector: 'app-board',

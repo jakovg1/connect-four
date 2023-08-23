@@ -9,6 +9,8 @@ import { BoardComponent } from './components/board/board.component';
 export class AppComponent {
   @ViewChild(BoardComponent) private board!: BoardComponent;
 
+  public overlayAnimationSpeed = 500;
+
   constructor() {}
 
   public menuActive: boolean = true;

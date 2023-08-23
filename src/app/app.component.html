@@ -2,6 +2,10 @@
   <app-board (endGame)="this.menuActive = true"></app-board>
 </div>
 
-<div class="menu" [class.hidden]="!menuActive">
+<div
+  class="menu"
+  [ngClass]="{ disappear: !menuActive }"
+  [ngStyle]="{ 'animation-duration': overlayAnimationSpeed + 'ms' }"
+>
   <div class="menu-item" (click)="newGame()">New Game</div>
 </div>
