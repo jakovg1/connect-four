@@ -93,3 +93,39 @@
   100% {
   }
 }
+
+.winner-animation {
+  position: absolute;
+
+  display: flex;
+  align-items: center;
+
+  padding: 0 8vh;
+
+  font-weight: bold;
+  font-size: 20vh;
+
+  animation: winnerAnimation 200ms forwards;
+  // background-color: rgb(148, 148, 148);
+
+  height: 40vh;
+
+  // width: auto;
+
+  z-index: 10;
+
+  .color-change {
+    color: rgb(224, 225, 227);
+    text-shadow: 0px 0px 100px rgb(218, 218, 218), 2px 2px 4px black;
+  }
+}
+
+@keyframes winnerAnimation {
+  0% {
+    top: -200vh;
+  }
+
+  100% {
+    top: 25vh;
+  }
+}

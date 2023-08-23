@@ -22,6 +22,8 @@ export class BoardComponent implements OnInit {
 
   public turnOfPlayer: BoardCell = BoardCell.Player1;
 
+  public winnerAnimation: boolean = false;
+
   public board: BoardCell[][] = [];
 
   private suspendPlay: boolean = false;
@@ -76,7 +78,7 @@ export class BoardComponent implements OnInit {
     setTimeout(() => {
       this.addTokenToColumn(computersMove, this.turnOfPlayer);
       this.suspendPlay = false;
-    }, getRandomNumberInRange(100, 1200));
+    }, getRandomNumberInRange(200, 1200));
   }
 
   public getColumnHeight(column: number): number {
@@ -95,6 +97,7 @@ export class BoardComponent implements OnInit {
 
     this.turnOfPlayer = BoardCell.Player1;
     this.suspendPlay = false; // if player is not playing - refactor later on if needed
+    this.winnerAnimation = false;
   }
 
   private checkForEndOfGame(columnIndex: number, rowIndex: number): boolean {
@@ -138,8 +141,7 @@ export class BoardComponent implements OnInit {
         this.checkInDirection(columnIndex, rowIndex, 0, 1);
       }
     } catch (exception) {
-      this.suspendPlay = true;
-      this.announceEndOfGame(this.turnOfPlayer);
+      this.announceEndOfGame();
       return true;
     }
     return false;
@@ -164,13 +166,14 @@ export class BoardComponent implements OnInit {
     }
   }
 
-  private announceEndOfGame(winner: BoardCell): void {
-    // this.cdk.detectChanges();
+  private announceEndOfGame(): void {
+    this.suspendPlay = true;
+    this.winnerAnimation = true;
+
     setTimeout(() => {
-      alert('Player ' + winner + ' has won the game!');
       this.resetGame();
       this.endGame.emit();
-    }, 200);
+    }, 1500); //pause for displaying winner
   }
 
   private checkIfNoMoreMovesAreAvailable(): boolean {

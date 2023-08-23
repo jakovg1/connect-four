@@ -61,17 +61,18 @@
 }
 
 .disappear {
+  // pointer-events: none;
   animation-name: disappear;
 }
 
 .appear {
+  // pointer-events: auto;
   animation-name: appear;
 }
 
 @keyframes appear {
   0% {
     opacity: 0;
-    display: block;
   }
 
   100% {

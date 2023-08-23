@@ -4,7 +4,6 @@
     *ngFor="let column of [].constructor(boardWidth); let columnIndex = index"
     (click)="player1AddToken(columnIndex)"
   >
-    <!-- <div class="column-container" style="background-color: brown"> -->
     <div class="column-container">
       <div
         class="board-hole"
@@ -15,10 +14,6 @@
       ></div>
     </div>
 
-    <!-- <div
-      class="column-container"
-      style="background-color: aquamarine; opacity: 40%"
-    > -->
     <div class="column-container">
       <div
         class="board-token"
@@ -32,5 +27,18 @@
 
     <!-- <span>{{ getColumnHeight(columnIndex) }}</span> -->
     <!-- REMOVE THIS; FOR DEBUGGING pURPOSES -->
+  </div>
+
+  <!-- Winner animation -->
+  <div *ngIf="winnerAnimation" class="winner-animation">
+    <div class="color-change">
+      <span
+        [ngStyle]="{
+          color: turnOfPlayer === 1 ? 'rgb(62, 138, 201)' : 'rgb(201, 97, 62)'
+        }"
+        >{{ turnOfPlayer == 1 ? "Blue" : "Red" }}</span
+      >
+      wins!
+    </div>
   </div>
 </div>

@@ -4,8 +4,8 @@
 
 <div
   class="menu"
-  [ngClass]="{ disappear: !menuActive }"
+  [ngClass]="{ disappear: !menuActive, appear: menuActive }"
   [ngStyle]="{ 'animation-duration': overlayAnimationSpeed + 'ms' }"
 >
-  <div class="menu-item" (click)="newGame()">New Game</div>
+  <div class="menu-item" (click)="newGame()">Play</div>
 </div>
