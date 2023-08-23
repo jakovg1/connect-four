@@ -101,45 +101,18 @@ export class BoardComponent implements OnInit {
   }
 
   private checkForEndOfGame(columnIndex: number, rowIndex: number): boolean {
-    const shouldSearchUp = BOARD_HEIGHT - rowIndex >= WINNING_STREAK;
-    const shouldSearchDown = rowIndex >= WINNING_STREAK - 1;
-    const shouldSearchLeft = columnIndex >= WINNING_STREAK - 1;
-    const shouldSearchRight = BOARD_WIDTH - columnIndex >= WINNING_STREAK;
-
     try {
-      if (shouldSearchDown) {
-        // search down
-        this.checkInDirection(columnIndex, rowIndex, -1, 0);
-        if (shouldSearchLeft) {
-          // search down left diagonal
-          this.checkInDirection(columnIndex, rowIndex, -1, -1);
-        }
-        if (shouldSearchRight) {
-          // search down right diagonal
-          this.checkInDirection(columnIndex, rowIndex, -1, 1);
-        }
-      }
+      //search up left direction
+      this.searchInDirection(columnIndex, rowIndex, 1, -1);
 
-      if (shouldSearchUp) {
-        // search up left diagonal
-        if (shouldSearchLeft) {
-          this.checkInDirection(columnIndex, rowIndex, 1, -1);
-        }
-        if (shouldSearchRight) {
-          // search up right diagonal
-          this.checkInDirection(columnIndex, rowIndex, 1, 1);
-        }
-      }
+      //search horizontal direction
+      this.searchInDirection(columnIndex, rowIndex, 0, 1);
 
-      // search left
-      if (shouldSearchLeft) {
-        this.checkInDirection(columnIndex, rowIndex, 0, -1);
-      }
+      //search up right direction
+      this.searchInDirection(columnIndex, rowIndex, 1, 1);
 
-      // search right
-      if (shouldSearchRight) {
-        this.checkInDirection(columnIndex, rowIndex, 0, 1);
-      }
+      //search vertical direction
+      this.searchInDirection(columnIndex, rowIndex, 1, 0);
     } catch (exception) {
       this.announceEndOfGame();
       return true;
@@ -147,23 +120,54 @@ export class BoardComponent implements OnInit {
     return false;
   }
 
-  private checkInDirection(
+  private searchInDirection(
     columnIndex: number,
     rowIndex: number,
     verticaIncrement: number,
     horizontalIncrement: number
-  ) {
-    for (let i = 1; i < WINNING_STREAK; i++) {
+  ): void {
+    const streakInNegativeDirection = this.getStreakInDirection(
+      columnIndex,
+      rowIndex,
+      verticaIncrement,
+      horizontalIncrement
+    );
+
+    const streakInPositiveDirection = this.getStreakInDirection(
+      columnIndex,
+      rowIndex,
+      -verticaIncrement,
+      -horizontalIncrement
+    );
+
+    if (
+      streakInPositiveDirection + streakInNegativeDirection >=
+      WINNING_STREAK - 1
+    )
+      throw new Error('Game over :)');
+  }
+
+  private getStreakInDirection(
+    columnIndex: number,
+    rowIndex: number,
+    verticaIncrement: number,
+    horizontalIncrement: number
+  ): number {
+    let streak = 0;
+    for (let i = 1; ; i++) {
+      const searchColumn = columnIndex + horizontalIncrement * i;
+      const searchRow = rowIndex + verticaIncrement * i;
       if (
-        this.turnOfPlayer !==
-        this.board[columnIndex + horizontalIncrement * i][
-          rowIndex + verticaIncrement * i
-        ]
-      ) {
+        searchColumn >= BOARD_WIDTH ||
+        searchColumn < 0 ||
+        searchRow >= BOARD_HEIGHT ||
+        searchRow < 0
+      )
         break;
-      }
-      if (i == WINNING_STREAK - 1) throw new Error('End of game :)');
+      if (this.board[searchColumn][searchRow] !== this.turnOfPlayer) break;
+      streak += 1;
     }
+    return streak;
   }
 
   private announceEndOfGame(): void {
