@@ -18,10 +18,12 @@
       <div
         class="board-token"
         *ngFor="
-          let boardHole of [].constructor(getColumnHeight(columnIndex));
+          let boardHole of [].constructor(
+            boardService.getColumnHeight(columnIndex)
+          );
           let rowIndex = index
         "
-        [style]="getCellStyle(columnIndex, rowIndex)"
+        [style]="boardService.getCellStyle(columnIndex, rowIndex)"
       ></div>
     </div>
 
@@ -34,9 +36,12 @@
     <div class="color-change">
       <span
         [ngStyle]="{
-          color: turnOfPlayer === 1 ? 'rgb(62, 138, 201)' : 'rgb(201, 97, 62)'
+          color:
+            boardService.turnOfPlayer === 1
+              ? 'rgb(62, 138, 201)'
+              : 'rgb(201, 97, 62)'
         }"
-        >{{ turnOfPlayer == 1 ? "Blue" : "Red" }}</span
+        >{{ boardService.turnOfPlayer == 1 ? "Blue" : "Red" }}</span
       >
       wins!
     </div>
