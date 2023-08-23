@@ -7,6 +7,7 @@
   margin-top: 10vh;
   display: flex;
   justify-content: space-evenly;
+  // z-index: 20;
 }
 
 .board-column {
@@ -23,6 +24,7 @@
   &:hover {
     background-color: rgb(65, 63, 63);
   }
+  // z-index: 20;
 }
 
 .column-container {
@@ -47,6 +49,8 @@
   // width: 12vh;
   // height: 12vh;
 
+  // border: 1000px solid black;
+
   min-width: 11vh;
   max-width: 11vh;
   min-height: 11vh;
@@ -54,6 +58,8 @@
 
   margin: 4px;
   border-radius: 100%;
+
+  // z-index: 2;
 }
 
 .board-token {
@@ -72,4 +78,16 @@
   // height: 12vh;
   margin: 4px;
   border-radius: 100%;
+
+  animation: dropToken 200ms linear;
+  z-index: 7;
+}
+
+@keyframes dropToken {
+  0% {
+    translate: 0 -100vh;
+  }
+
+  100% {
+  }
 }

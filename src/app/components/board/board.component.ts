@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import { BOARD_HEIGHT, BOARD_WIDTH, WINNING_STREAK } from './board.constants';
 import { BoardCell } from './board.model';
+import { getRandomNumberInRange } from 'src/app/utils';
 
 @Component({
   selector: 'app-board',
@@ -23,7 +24,7 @@ export class BoardComponent implements OnInit {
 
   public board: BoardCell[][] = [];
 
-  private computerIsPlaying: boolean = false;
+  private suspendPlay: boolean = false;
 
   constructor(private cdk: ChangeDetectorRef) {}
 
@@ -50,7 +51,7 @@ export class BoardComponent implements OnInit {
   }
 
   public player1AddToken(column: number): void {
-    if (this.computerIsPlaying) return;
+    if (this.suspendPlay) return;
     this.addTokenToColumn(column, BoardCell.Player1);
   }
 
@@ -70,12 +71,12 @@ export class BoardComponent implements OnInit {
     if (this.turnOfPlayer == BoardCell.Player1) return;
 
     //Computer's turn -> refactor this code later on
-    this.computerIsPlaying = true;
-    const computersMove = 0;
+    this.suspendPlay = true;
+    const computersMove = Math.floor(Math.random() * BOARD_WIDTH);
     setTimeout(() => {
       this.addTokenToColumn(computersMove, this.turnOfPlayer);
-      this.computerIsPlaying = false;
-    }, 500);
+      this.suspendPlay = false;
+    }, getRandomNumberInRange(100, 1200));
   }
 
   public getColumnHeight(column: number): number {
@@ -93,6 +94,7 @@ export class BoardComponent implements OnInit {
       .map(() => new Array(BOARD_HEIGHT).fill(BoardCell.Empty));
 
     this.turnOfPlayer = BoardCell.Player1;
+    this.suspendPlay = false; // if player is not playing - refactor later on if needed
   }
 
   private checkForEndOfGame(columnIndex: number, rowIndex: number): boolean {
@@ -136,6 +138,7 @@ export class BoardComponent implements OnInit {
         this.checkInDirection(columnIndex, rowIndex, 0, 1);
       }
     } catch (exception) {
+      this.suspendPlay = true;
       this.announceEndOfGame(this.turnOfPlayer);
       return true;
     }
@@ -167,7 +170,14 @@ export class BoardComponent implements OnInit {
       alert('Player ' + winner + ' has won the game!');
       this.resetGame();
       this.endGame.emit();
-    }, 10);
+    }, 200);
+  }
+
+  private checkIfNoMoreMovesAreAvailable(): boolean {
+    for (let column = 0; column < BOARD_WIDTH; column++) {
+      if (this.getColumnHeight(column) < BOARD_HEIGHT) return false;
+    }
+    return true;
   }
 
   private toggleTurn(): void {
