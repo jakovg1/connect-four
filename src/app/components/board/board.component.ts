@@ -6,7 +6,7 @@ import {
   Output,
 } from '@angular/core';
 import { BOARD_HEIGHT, BOARD_WIDTH, WINNING_STREAK } from './board.constants';
-import { BoardCell } from './board.model';
+import { Board, BoardCell } from './board.model';
 import { getRandomNumberInRange } from 'src/app/utility/utils';
 import { AiAdversaryService } from 'src/app/ai-adversary/ai-adversary.service';
 import { BoardService } from './board.service';
@@ -24,14 +24,16 @@ export class BoardComponent implements OnInit {
 
   public winnerAnimation: boolean = false;
 
-  public board: BoardCell[][] = [];
+  public board: Board;
 
   private suspendPlay: boolean = false;
 
   constructor(
     public boardService: BoardService,
     private aiAdversary: AiAdversaryService
-  ) {}
+  ) {
+    this.board = new Board();
+  }
 
   public ngOnInit(): void {
     this.resetGame();
@@ -43,30 +45,32 @@ export class BoardComponent implements OnInit {
   }
 
   public addTokenToColumn(column: number, tokenToAdd?: BoardCell): void {
-    const winner = this.boardService.addTokenToColumn(column);
+    const winner = this.boardService.addTokenToColumn(column, this.board);
     if (!!winner) {
       this.announceEndOfGame();
       return;
     }
 
-    this.toggleTurn();
+    this.board.turnOfPlayer = this.boardService.toggleTurn(
+      this.board.turnOfPlayer
+    );
 
-    if (this.boardService.turnOfPlayer == BoardCell.Player1) return;
+    if (this.board.turnOfPlayer == BoardCell.Player1) return;
 
     //Computer's turn -> refactor this code later on
     this.suspendPlay = true;
     const computersMove = this.aiAdversary.getNextMove(this.board);
 
     setTimeout(() => {
-      this.addTokenToColumn(computersMove, this.boardService.turnOfPlayer);
+      this.addTokenToColumn(computersMove, this.board.turnOfPlayer);
       this.suspendPlay = false;
     }, getRandomNumberInRange(200, 1200)); // random pause to simulate "thinking" time
   }
 
   public resetGame(): void {
-    this.boardService.resetBoard();
+    this.board.resetBoard();
 
-    this.boardService.turnOfPlayer = BoardCell.Player1;
+    this.board.turnOfPlayer = BoardCell.Player1;
     this.suspendPlay = false; // if player is not playing - refactor later on if needed
     this.winnerAnimation = false;
   }
@@ -79,12 +83,5 @@ export class BoardComponent implements OnInit {
       this.resetGame();
       this.endGame.emit();
     }, 1500); //pause for displaying winner
-  }
-
-  private toggleTurn(): void {
-    this.boardService.turnOfPlayer =
-      this.boardService.turnOfPlayer === BoardCell.Player1
-        ? BoardCell.Player2
-        : BoardCell.Player1;
   }
 }
