@@ -6,8 +6,6 @@ import { Board, BoardCell } from './board.model';
   providedIn: 'root',
 })
 export class BoardService {
-  private _board: BoardCell[][] = [];
-
   constructor() {}
 
   public addTokenToColumn(column: number, board: Board): BoardCell | undefined {
