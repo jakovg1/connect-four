@@ -19,34 +19,21 @@ export class AiAdversaryService {
 
   public tree: any;
 
-  private maxDepth = 5; // refactor this. This should be connected to "_difficulty"
+  private maxDepth = 5
 
   private _difficulty: Difficulty = Difficulty.Medium;
 
-  constructor(private boardService: BoardService) {}
+  constructor(private boardService: BoardService) { }
 
   public getNextMove(initialBoard: Board): number {
-    // while (true) {
-    //   const board = initialBoard.cloneBoard();
-    //   console.log(board);
-    //   const moveProposition = Math.floor(Math.random() * BOARD_WIDTH);
-    //   if (board.isValidMove(moveProposition)) return moveProposition;
-    // }
     this.tree = {};
     const optimalMove = this.minimax(initialBoard, this.maxDepth);
     const { column, score } = optimalMove;
-    // console.log(column, score);
-    console.log(optimalMove);
-    if (score === 0) {
-      // console.log('RANDOM!');
-      return Math.floor(Math.random() * BOARD_WIDTH); //use random move if tree is not deep enough, i.e. score is 0. This is because no heuristic is used
-    }
     return column;
   }
 
   private minimax(intialBoard: Board, depth: number): PlayerMove {
     let result: any = {};
-    if (depth === 2) debugger;
     if (depth == 0) {
       const playerMove = { column: -1, score: 0 } as PlayerMove; //replace score 0 with heuristic!
       return playerMove;
@@ -58,7 +45,6 @@ export class AiAdversaryService {
       const board = intialBoard.cloneBoard();
       const winner = this.boardService.addTokenToColumn(column, board);
       if (!!winner) {
-        // console.log('ENDGAME FOUND: ', board);
         if (winner == BoardCell.Player1) return { column, score: -1_000_000 };
         if (winner == BoardCell.Player2) return { column, score: 1_000_000 };
       }
@@ -68,22 +54,22 @@ export class AiAdversaryService {
       validMoves.push(move);
       result[column] = move;
     }
-    let optimalMove;
-    if (intialBoard.turnOfPlayer == BoardCell.Player1) {
+    let optimalMoveIndex;
+    if (intialBoard.turnOfPlayer == BoardCell.Player2) {  //player2 ili 1??
       //max
       const maxScore = Math.max(...validMoves.map((move) => move.score));
-      optimalMove =
-        validMoves.find((move) => move.score === maxScore) ||
-        ({} as PlayerMove);
+      optimalMoveIndex =
+        validMoves.findIndex((move) => move.score === maxScore) || 0;
     } else {
       //min
       const minScore = Math.min(...validMoves.map((move) => move.score));
-      optimalMove =
-        validMoves.find((move) => move.score === minScore) ||
-        ({} as PlayerMove);
+      optimalMoveIndex =
+        validMoves.findIndex((move) => move.score === minScore) || 0;
     }
 
-    const { score, column } = optimalMove;
-    return { score, column, ...result } as PlayerMove;
+    const moveScores = validMoves.map(move => move.score);
+    const averageMoveScore = moveScores.reduce((a, b) => a + b, 0) / moveScores.length;
+
+    return { score: averageMoveScore, column: optimalMoveIndex, ...result } as PlayerMove;
   }
 }
