@@ -45,6 +45,7 @@ export class BoardComponent implements OnInit {
   }
 
   public addTokenToColumn(column: number, tokenToAdd?: BoardCell): void {
+    if (!this.board.isValidMove(column)) return;
     const winner = this.boardService.addTokenToColumn(column, this.board);
     if (!!winner) {
       this.announceEndOfGame();
@@ -64,7 +65,7 @@ export class BoardComponent implements OnInit {
     setTimeout(() => {
       this.addTokenToColumn(computersMove, this.board.turnOfPlayer);
       this.suspendPlay = false;
-    }, getRandomNumberInRange(200, 1200)); // random pause to simulate "thinking" time
+    }, getRandomNumberInRange(100, 200)); // random pause to simulate "thinking" time
   }
 
   public resetGame(): void {
@@ -82,6 +83,6 @@ export class BoardComponent implements OnInit {
     setTimeout(() => {
       this.resetGame();
       this.endGame.emit();
-    }, 1500); //pause for displaying winner
+    }, 2500); //pause for displaying winner
   }
 }
