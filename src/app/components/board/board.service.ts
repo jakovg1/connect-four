@@ -6,7 +6,7 @@ import { Board, BoardCell } from './board.model';
   providedIn: 'root',
 })
 export class BoardService {
-  constructor() {}
+  constructor() { }
 
   public addTokenToColumn(column: number, board: Board): BoardCell | undefined {
     if (column < 0 || column > BOARD_WIDTH - 1) return;
@@ -34,7 +34,6 @@ export class BoardService {
     board: Board
   ): BoardCell | undefined {
     try {
-      const { boardArray } = board;
       //search up left direction
       this.searchInDirection(columnIndex, rowIndex, 1, -1, board);
 

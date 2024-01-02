@@ -11,7 +11,7 @@ export class AppComponent {
 
   public overlayAnimationSpeed = 500;
 
-  constructor() {}
+  constructor() { }
 
   public menuActive: boolean = true;
 

@@ -19,7 +19,7 @@ export class AiAdversaryService {
 
   public tree: any;
 
-  private maxDepth = 5
+  private maxDepth = 5;
 
   private _difficulty: Difficulty = Difficulty.Medium;
 
@@ -28,7 +28,10 @@ export class AiAdversaryService {
   public getNextMove(initialBoard: Board): number {
     this.tree = {};
     const optimalMove = this.minimax(initialBoard, this.maxDepth);
-    const { column, score } = optimalMove;
+    let { column } = optimalMove;
+    if (column === -1) {
+      column = Math.ceil(Math.random() * (BOARD_WIDTH - 1));
+    }
     return column;
   }
 
@@ -39,7 +42,7 @@ export class AiAdversaryService {
       return playerMove;
     }
 
-    const validMoves: PlayerMove[] = [];
+    const validMoves: Record<number, PlayerMove> = {}
     for (let column = 0; column < BOARD_WIDTH; column++) {
       if (!intialBoard.isValidMove(column)) continue;
       const board = intialBoard.cloneBoard();
@@ -51,23 +54,23 @@ export class AiAdversaryService {
 
       board.toggleTurn();
       const move = this.minimax(board, depth - 1);
-      validMoves.push(move);
+      validMoves[column] = move;
       result[column] = move;
     }
-    let optimalMoveIndex;
+    let optimalMoveIndex: number;
     if (intialBoard.turnOfPlayer == BoardCell.Player2) {  //player2 ili 1??
       //max
-      const maxScore = Math.max(...validMoves.map((move) => move.score));
+      const maxScore = Math.max(...Object.values(validMoves).map((move) => move.score));
       optimalMoveIndex =
-        validMoves.findIndex((move) => move.score === maxScore) || 0;
+        +(Object.entries(validMoves).find(([_, validMove]) => validMove.score === maxScore)?.[0] || 0);
     } else {
       //min
-      const minScore = Math.min(...validMoves.map((move) => move.score));
+      const minScore = Math.min(...Object.values(validMoves).map((move) => move.score));
       optimalMoveIndex =
-        validMoves.findIndex((move) => move.score === minScore) || 0;
+        +(Object.entries(validMoves).find(([_, validMove]) => validMove.score === minScore)?.[0] || 0);
     }
 
-    const moveScores = validMoves.map(move => move.score);
+    const moveScores = Object.values(validMoves).map(move => move.score);
     const averageMoveScore = moveScores.reduce((a, b) => a + b, 0) / moveScores.length;
 
     return { score: averageMoveScore, column: optimalMoveIndex, ...result } as PlayerMove;

@@ -52,9 +52,8 @@ export class BoardComponent implements OnInit {
       return;
     }
 
-    this.board.turnOfPlayer = this.boardService.toggleTurn(
-      this.board.turnOfPlayer
-    );
+    this.board.turnOfPlayer =
+      this.board.turnOfPlayer == BoardCell.Player1 ? BoardCell.Player2 : BoardCell.Player1;
 
     if (this.board.turnOfPlayer == BoardCell.Player1) return;
 
