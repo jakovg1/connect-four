@@ -13,15 +13,24 @@ export interface PlayerMove {
   providedIn: 'root',
 })
 export class AiAdversaryService {
-  public setDifficulty(difficulty: Difficulty) {
-    this._difficulty = difficulty;
+
+  public set difficulty(difficulty: Difficulty) {
+    switch(difficulty){
+      case Difficulty.Easy:
+        this.maxDepth = 2;
+        break;
+      case Difficulty.Medium:
+        this.maxDepth = 4;
+        break;
+      case Difficulty.Hard:
+        this.maxDepth = 5;
+        break;
+    }
   }
 
   public tree: any;
 
   private maxDepth = 5;
-
-  private _difficulty: Difficulty = Difficulty.Medium;
 
   constructor(private boardService: BoardService) { }
 
