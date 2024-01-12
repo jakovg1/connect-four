@@ -30,9 +30,11 @@ export class AiAdversaryService {
 
   public tree: any;
 
-  private maxDepth = 5;
+  private maxDepth: number;
 
-  constructor(private boardService: BoardService) { }
+  constructor(private boardService: BoardService) { 
+    this.maxDepth = 4;
+  }
 
   public getNextMove(initialBoard: Board): number {
     this.tree = {};

@@ -16,6 +16,8 @@ export class AppComponent {
   public DifficultyEnum = Difficulty;
   public GameModeEnum = GameMode;
 
+  public isSAppStartup = true;
+
   public overlayAnimationSpeed = 500;
 
   constructor() { }
@@ -23,6 +25,7 @@ export class AppComponent {
   public menuActive: boolean = true;
 
   public newGame(): void {
+    this.isSAppStartup = false;
     this.menuActive = false;
     this.board.resetGame();
   }

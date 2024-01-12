@@ -5,7 +5,7 @@
 </div>
 
 <div class="menu" 
-[ngClass]="{ disappear: !menuActive, appear: menuActive }"
+[ngClass]="{ disappear: !menuActive, appear: menuActive && !this.isSAppStartup}"
 [ngStyle]="{ 'animation-duration': overlayAnimationSpeed + 'ms' }">
 
   <div class="menu-item" (click)="newGame()">Play</div>
