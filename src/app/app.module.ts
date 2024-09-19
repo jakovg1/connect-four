@@ -6,9 +6,11 @@ import { AppComponent } from './app.component';
 import { MaterialModule } from './shared/modules/material/material.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { BoardComponent } from './components/board/board.component';
+import { MainMenuComponent } from './menu/main-menu/main-menu.component';
+import { SettingsMenuComponent } from './menu/settings-menu/settings-menu.component';
 
 @NgModule({
-  declarations: [AppComponent, BoardComponent],
+  declarations: [AppComponent, BoardComponent, MainMenuComponent, SettingsMenuComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
