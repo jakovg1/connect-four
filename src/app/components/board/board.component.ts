@@ -6,7 +6,14 @@ import {
   OnInit,
   Output,
 } from '@angular/core';
-import { BOARD_HEIGHT, BOARD_WIDTH, Difficulty, GameMode, WINNING_STREAK } from './board.constants';
+import {
+  BOARD_HEIGHT,
+  BOARD_WIDTH,
+  Difficulty,
+  GameMode,
+  PAUSE_AT_END_OF_GAME,
+  WINNING_STREAK,
+} from './board.constants';
 import { Board, BoardCell } from './board.model';
 import { getRandomNumberInRange } from 'src/app/utility/utils';
 import { AiAdversaryService } from 'src/app/ai-adversary/ai-adversary.service';
@@ -20,7 +27,7 @@ import { BoardService } from './board.service';
 export class BoardComponent implements OnInit {
   @Output() public endGame: EventEmitter<void> = new EventEmitter<void>();
 
-  @Input() public set difficulty(difficulty: Difficulty){
+  @Input() public set difficulty(difficulty: Difficulty) {
     this.aiAdversary.difficulty = difficulty;
   }
 
@@ -43,7 +50,7 @@ export class BoardComponent implements OnInit {
     public boardService: BoardService,
     private aiAdversary: AiAdversaryService
   ) {
-    console.log("BOARD INSTANTIATED!!!");
+    console.log('BOARD INSTANTIATED!!!');
     this.board = new Board();
   }
 
@@ -64,11 +71,14 @@ export class BoardComponent implements OnInit {
     }
     this.togglePlayer();
 
-    if(this.gameMode == GameMode.PlayerVsComputer) {
+    if (this.gameMode == GameMode.PlayerVsComputer) {
       this.suspendPlay = true;
       setTimeout(() => {
         const computersMove = this.aiAdversary.getNextMove(this.board);
-        const winner = this.boardService.addTokenToColumn(computersMove, this.board);
+        const winner = this.boardService.addTokenToColumn(
+          computersMove,
+          this.board
+        );
         if (!!winner) {
           this.announceEndOfGame();
           return;
@@ -94,10 +104,13 @@ export class BoardComponent implements OnInit {
     setTimeout(() => {
       this.resetGame();
       this.endGame.emit();
-    }, 2500); //pause for displaying winner
+    }, PAUSE_AT_END_OF_GAME); //pause for displaying winner
   }
 
   private togglePlayer(): void {
-    this.board.turnOfPlayer = this.board.turnOfPlayer == BoardCell.Player1 ? BoardCell.Player2 : BoardCell.Player1;
+    this.board.turnOfPlayer =
+      this.board.turnOfPlayer == BoardCell.Player1
+        ? BoardCell.Player2
+        : BoardCell.Player1;
   }
 }
