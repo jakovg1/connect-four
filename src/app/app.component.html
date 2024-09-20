@@ -1,14 +1,25 @@
 <div class="background">
-  <app-board (endGame)="this.menuActive = true" 
-  [difficulty]="difficulty" 
-  [gameMode]="gameMode"></app-board>
+  <app-board
+    (endGame)="this.menuActive = true"
+    [difficulty]="difficulty"
+    [gameMode]="gameMode"
+  ></app-board>
 </div>
 
-<div class="menu" 
-[ngClass]="{ disappear: !menuActive, appear: menuActive && !this.isSAppStartup}"
-[ngStyle]="{ 'animation-duration': overlayAnimationSpeed + 'ms' }">
-
+<div
+  class="menu"
+  [ngClass]="{
+    disappear: !menuActive,
+    appear: menuActive && !this.isAppStartup
+  }"
+  [ngStyle]="{ 'animation-duration': overlayAnimationSpeed + 'ms' }"
+>
   <div class="menu-item" (click)="newGame()">Play</div>
-  <div class="menu-item" (click)="toggleDifficulty()">Toggle difficulty: {{ this.DifficultyEnum[this.difficulty]}}</div>
-  <div class="menu-item" (click)="toggleGameMode()">Toggle game mode: {{this.GameModeEnum[this.gameMode]}}</div>
+  <div class="menu-item" (click)="toggleDifficulty()">
+    Toggle difficulty: {{ this.DifficultyEnum[this.difficulty] }}
+  </div>
+  <div class="menu-item" (click)="toggleGameMode()">
+    Toggle game mode: {{ this.GameModeEnum[this.gameMode] }}
+  </div>
 </div>
+<!-- <router-outlet></router-outlet> -->
