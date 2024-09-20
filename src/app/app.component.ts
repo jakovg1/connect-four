@@ -1,8 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { BoardComponent } from './components/board/board.component';
 import { Difficulty, GameMode } from './components/board/board.constants';
-import { bootstrapApplication } from '@angular/platform-browser';
-import { provideAnimations } from '@angular/platform-browser/animations';
+import { GameSettingsService } from './game-settings.service';
 
 @Component({
   selector: 'app-root',
@@ -11,18 +10,13 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 })
 export class AppComponent {
   @ViewChild(BoardComponent) private board!: BoardComponent;
-
-  public difficulty = Difficulty.Medium;
-  public gameMode = GameMode.PlayerVsComputer;
-
   public DifficultyEnum = Difficulty;
   public GameModeEnum = GameMode;
-
   public isAppStartup = true;
 
   public overlayAnimationSpeed = 500;
 
-  constructor() {}
+  constructor(public gameSettingsService: GameSettingsService) {}
 
   public menuActive: boolean = true;
 
@@ -32,18 +26,10 @@ export class AppComponent {
     this.board.resetGame();
   }
 
-  public toggleDifficulty(): void {
-    this.difficulty = (this.difficulty + 1) % 3;
+  public displayGameMode(): string {
+    return GameMode[this.gameSettingsService.gameMode];
   }
-
-  public toggleGameMode(): void {
-    this.gameMode = (this.gameMode + 1) % 2;
+  public displayDifficulty(): string {
+    return Difficulty[this.gameSettingsService.difficulty];
   }
 }
-
-bootstrapApplication(AppComponent, {
-  providers: [
-    provideAnimations(),
-    //provideAnimationsAsync()  // cant find it?
-  ],
-});

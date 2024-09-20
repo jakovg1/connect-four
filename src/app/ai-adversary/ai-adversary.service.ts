@@ -13,31 +13,39 @@ export interface PlayerMove {
   providedIn: 'root',
 })
 export class AiAdversaryService {
+  private _difficulty: Difficulty = Difficulty.Medium;
+
   public set difficulty(difficulty: Difficulty) {
     switch (difficulty) {
       case Difficulty.Easy:
-        this.maxDepth = 2;
+        this._maxDepth = 2;
         break;
       case Difficulty.Medium:
-        this.maxDepth = 4;
+        this._maxDepth = 4;
         break;
       case Difficulty.Hard:
-        this.maxDepth = 5;
+        this._maxDepth = 5;
         break;
     }
+    this._difficulty = difficulty;
+  }
+
+  public get difficulty(): Difficulty {
+    return this._difficulty;
   }
 
   public tree: any;
 
-  private maxDepth: number;
+  private _maxDepth: number;
 
   constructor(private boardService: BoardService) {
-    this.maxDepth = 4;
+    this._maxDepth = 4;
+    this._difficulty = Difficulty.Medium;
   }
 
   public getNextMove(initialBoard: Board): number {
     this.tree = {};
-    const optimalMove = this.minimax(initialBoard, this.maxDepth);
+    const optimalMove = this.minimax(initialBoard, this._maxDepth);
     let { column } = optimalMove;
     if (column === -1) {
       column = Math.ceil(Math.random() * (BOARD_WIDTH - 1));

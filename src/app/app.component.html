@@ -1,9 +1,5 @@
 <div class="background">
-  <app-board
-    (endGame)="this.menuActive = true"
-    [difficulty]="difficulty"
-    [gameMode]="gameMode"
-  ></app-board>
+  <app-board (endGame)="this.menuActive = true"></app-board>
 </div>
 
 <div
@@ -15,11 +11,11 @@
   [ngStyle]="{ 'animation-duration': overlayAnimationSpeed + 'ms' }"
 >
   <div class="menu-item" (click)="newGame()">Play</div>
-  <div class="menu-item" (click)="toggleDifficulty()">
-    Toggle difficulty: {{ this.DifficultyEnum[this.difficulty] }}
+  <div class="menu-item" (click)="this.gameSettingsService.toggleDifficulty()">
+    Toggle difficulty: {{ displayDifficulty() }}
   </div>
-  <div class="menu-item" (click)="toggleGameMode()">
-    Toggle game mode: {{ this.GameModeEnum[this.gameMode] }}
+  <div class="menu-item" (click)="this.gameSettingsService.toggleGameMode()">
+    Toggle game mode: {{ displayGameMode() }}
   </div>
 </div>
 <!-- <router-outlet></router-outlet> -->

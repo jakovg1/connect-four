@@ -2,22 +2,19 @@ import {
   ChangeDetectorRef,
   Component,
   EventEmitter,
-  Input,
   OnInit,
   Output,
 } from '@angular/core';
 import {
   BOARD_HEIGHT,
   BOARD_WIDTH,
-  Difficulty,
   GameMode,
   PAUSE_AT_END_OF_GAME,
-  WINNING_STREAK,
 } from './board.constants';
 import { Board, BoardCell } from './board.model';
-import { getRandomNumberInRange } from 'src/app/utility/utils';
 import { AiAdversaryService } from 'src/app/ai-adversary/ai-adversary.service';
 import { BoardService } from './board.service';
+import { GameSettingsService } from 'src/app/game-settings.service';
 
 @Component({
   selector: 'app-board',
@@ -26,16 +23,6 @@ import { BoardService } from './board.service';
 })
 export class BoardComponent implements OnInit {
   @Output() public endGame: EventEmitter<void> = new EventEmitter<void>();
-
-  @Input() public set difficulty(difficulty: Difficulty) {
-    this.aiAdversary.difficulty = difficulty;
-  }
-
-  @Input() public gameMode: GameMode = GameMode.PlayerVsComputer;
-
-  public get difficulty() {
-    return this.aiAdversary.difficulty;
-  }
 
   public boardWidth = BOARD_WIDTH;
   public boardHeight = BOARD_HEIGHT;
@@ -48,18 +35,15 @@ export class BoardComponent implements OnInit {
 
   constructor(
     public boardService: BoardService,
-    private aiAdversary: AiAdversaryService
+    private aiAdversary: AiAdversaryService,
+    public gameSettingsService: GameSettingsService
   ) {
-    console.log('BOARD INSTANTIATED!!!');
+    // console.log('BOARD INSTANTIATED!!!');
     this.board = new Board();
   }
 
   public ngOnInit(): void {
     this.resetGame();
-  }
-
-  public getDifficulty(): Difficulty {
-    return this.aiAdversary.difficulty;
   }
 
   public addToken(column: number): void {
@@ -71,7 +55,7 @@ export class BoardComponent implements OnInit {
     }
     this.togglePlayer();
 
-    if (this.gameMode == GameMode.PlayerVsComputer) {
+    if (this.gameSettingsService.gameMode == GameMode.PlayerVsComputer) {
       this.suspendPlay = true;
       setTimeout(() => {
         const computersMove = this.aiAdversary.getNextMove(this.board);
