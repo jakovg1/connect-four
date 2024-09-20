@@ -1,6 +1,8 @@
 import { Component, ViewChild } from '@angular/core';
 import { BoardComponent } from './components/board/board.component';
 import { Difficulty, GameMode } from './components/board/board.constants';
+import { bootstrapApplication } from '@angular/platform-browser';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 @Component({
   selector: 'app-root',
@@ -38,3 +40,7 @@ export class AppComponent {
     this.gameMode = (this.gameMode + 1) % 2;
   }
 }
+
+bootstrapApplication(AppComponent, {
+  providers: [provideAnimationsAsync()],
+});

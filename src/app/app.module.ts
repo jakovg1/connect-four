@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MaterialModule } from './shared/modules/material/material.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { BoardComponent } from './components/board/board.component';
 import { MainMenuComponent } from './menu/main-menu/main-menu.component';
@@ -20,7 +19,6 @@ import { appRoutingModule } from './app.routes';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    MaterialModule,
     NoopAnimationsModule,
     appRoutingModule,
   ],
