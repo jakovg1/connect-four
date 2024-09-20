@@ -1,6 +1,9 @@
 export const BOARD_WIDTH = 7;
 export const BOARD_HEIGHT = 7;
 
+export const BLUE_PLAYER_WINS = 'bluePlayerWins';
+export const RED_PLAYER_WINS = 'redPlayerWins';
+
 export const WINNING_STREAK = 4;
 export const PAUSE_AT_END_OF_GAME = 2500; //ms
 

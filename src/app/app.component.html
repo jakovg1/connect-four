@@ -1,5 +1,17 @@
 <div class="background">
   <app-board (endGame)="this.menuActive = true"></app-board>
+
+  <div class="highscore">
+    <div class="title">Highscore</div>
+    <div class="main-panel">
+      <div class="subpanel blue">
+        {{ this.gameSettingsService.getBluePlayerWins() }}
+      </div>
+      <div class="subpanel red">
+        {{ this.gameSettingsService.getRedPlayerWins() }}
+      </div>
+    </div>
+  </div>
 </div>
 
 <div

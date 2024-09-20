@@ -17,6 +17,50 @@
   height: 100%;
 }
 
+.highscore {
+  background-color: rgba(37, 37, 37, 1);
+  width: 200px;
+  height: 80px;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  display: flex space-between;
+  flex-direction: column;
+
+  .title {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    line-height: 100%;
+    font-size: x-large;
+    margin: 4px;
+    height: 40%;
+  }
+  .main-panel {
+    display: flex;
+    flex-direction: row;
+    margin: 0 4px 4px 4px;
+    height: 60%;
+
+    .subpanel {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: larger;
+      width: 100%;
+
+      .blue {
+        color: blue;
+      }
+
+      .red {
+        color: red;
+        background-color: red;
+      }
+    }
+  }
+}
+
 .menu {
   z-index: 100;
   position: absolute;

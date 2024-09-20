@@ -64,6 +64,7 @@ export class BoardComponent implements OnInit {
           this.board
         );
         if (!!winner) {
+          this.gameSettingsService.updateHighscore(winner);
           this.announceEndOfGame();
           return;
         }
