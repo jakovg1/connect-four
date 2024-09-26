@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import {
-  BLUE_PLAYER_WINS,
+  NO_OF_BLUE_PLAYER_WINS,
   Difficulty,
   GameMode,
-  RED_PLAYER_WINS,
+  NO_OF_RED_PLAYER_WINS,
 } from './components/board/board.constants';
 import { AiAdversaryService } from './ai-adversary/ai-adversary.service';
 import { BoardCell } from './components/board/board.model';
@@ -48,25 +48,25 @@ export class GameSettingsService {
 
   //highscore
   public resetHighScore(): void {
-    localStorage[BLUE_PLAYER_WINS] = '0';
-    localStorage[RED_PLAYER_WINS] = '0';
+    localStorage[NO_OF_BLUE_PLAYER_WINS] = '0';
+    localStorage[NO_OF_RED_PLAYER_WINS] = '0';
   }
 
   public getRedPlayerWins(): Number {
-    return Number(localStorage.getItem(RED_PLAYER_WINS));
+    return Number(localStorage.getItem(NO_OF_RED_PLAYER_WINS));
   }
 
   public getBluePlayerWins(): Number {
-    return Number(localStorage.getItem(BLUE_PLAYER_WINS));
+    return Number(localStorage.getItem(NO_OF_BLUE_PLAYER_WINS));
   }
 
   public updateHighscore(newWinner: BoardCell) {
     switch (newWinner) {
       case BoardCell.Player1:
-        this.incrementPlayerWins(BLUE_PLAYER_WINS);
+        this.incrementPlayerWins(NO_OF_BLUE_PLAYER_WINS);
         break;
       case BoardCell.Player2:
-        this.incrementPlayerWins(RED_PLAYER_WINS);
+        this.incrementPlayerWins(NO_OF_RED_PLAYER_WINS);
         break;
     }
   }
