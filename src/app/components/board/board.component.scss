@@ -123,9 +123,11 @@
 @keyframes winnerAnimation {
   0% {
     top: -200vh;
+    opacity: 0%;
   }
 
   100% {
     top: 25vh;
+    opacity: 100%;
   }
 }

@@ -35,7 +35,9 @@
       <span
         [ngStyle]="{
           color:
-            board.turnOfPlayer === 1 ? 'rgb(62, 138, 201)' : 'rgb(201, 97, 62)'
+            board.turnOfPlayer === 1
+              ? '$blue-player-color'
+              : '$red-player-color'
         }"
         >{{ board.turnOfPlayer == 1 ? "Blue" : "Red" }}</span
       >
