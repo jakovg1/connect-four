@@ -1,3 +1,5 @@
+@import "src/styles/styles";
+
 .board {
   height: 90vh;
   width: 70vw;
@@ -83,6 +85,22 @@
 
   animation: dropToken 200ms linear;
   z-index: 7;
+}
+
+.red-background-color {
+  background-color: $red-player-color;
+}
+
+.blue-background-color {
+  background-color: $blue-player-color;
+}
+
+.red-color {
+  color: $red-player-color;
+}
+
+.blue-color {
+  color: $blue-player-color;
 }
 
 @keyframes dropToken {

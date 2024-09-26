@@ -33,6 +33,8 @@ export class BoardComponent implements OnInit {
 
   private suspendPlay: boolean = false;
 
+  public BoardCell = BoardCell;
+
   constructor(
     public boardService: BoardService,
     private aiAdversary: AiAdversaryService,

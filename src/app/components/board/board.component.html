@@ -21,7 +21,10 @@
           let boardHole of [].constructor(board.getColumnHeight(columnIndex));
           let rowIndex = index
         "
-        [style]="board.getCellStyle(columnIndex, rowIndex)"
+        [ngClass]="{
+          'blue-background-color': board.isCellBlue(columnIndex, rowIndex),
+          'red-background-color': board.isCellRed(columnIndex, rowIndex)
+        }"
       ></div>
     </div>
 
@@ -33,13 +36,11 @@
   <div *ngIf="winnerAnimation" class="winner-animation">
     <div class="color-change">
       <span
-        [ngStyle]="{
-          color:
-            board.turnOfPlayer === 1
-              ? '$blue-player-color'
-              : '$red-player-color'
+        [ngClass]="{
+          'blue-color': board.turnOfPlayer === BoardCell.Player1,
+          'red-color': board.turnOfPlayer === BoardCell.Player2
         }"
-        >{{ board.turnOfPlayer == 1 ? "Blue" : "Red" }}</span
+        >{{ board.turnOfPlayer == BoardCell.Player1 ? "Blue" : "Red" }}</span
       >
       wins!
     </div>

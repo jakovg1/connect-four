@@ -41,16 +41,13 @@ export class Board {
     return BOARD_HEIGHT;
   }
 
-  public getCellStyle(columnIndex: number, rowIndex: number): any {
-    const boardCell = this.boardArray[columnIndex][rowIndex];
-    switch (boardCell) {
-      case BoardCell.Player1:
-        return { 'background-color': 'rgb(62, 138, 201)' };
-      case BoardCell.Player2:
-        return { 'background-color': 'rgb(201, 97, 62)' };
-      default:
-        return {};
-    }
+  //used for CSS classes
+  public isCellBlue(columnIndex: number, rowIndex: number): boolean {
+    return this.isCellPlayer(columnIndex, rowIndex, BoardCell.Player1);
+  }
+
+  public isCellRed(columnIndex: number, rowIndex: number): boolean {
+    return this.isCellPlayer(columnIndex, rowIndex, BoardCell.Player2);
   }
 
   public resetBoard(): void {
@@ -61,5 +58,27 @@ export class Board {
 
   public isValidMove(column: number): boolean {
     return this.getColumnHeight(column) < BOARD_HEIGHT;
+  }
+
+  /**
+   * Return true if cell indexed by columnIndex and rowIndex is occupied by board cell defined by player,
+   * else return false
+   * @param columnIndex
+   * @param rowIndex
+   */
+  private isCellPlayer(
+    columnIndex: number,
+    rowIndex: number,
+    player: BoardCell
+  ): boolean {
+    const boardCell = this.boardArray[columnIndex][rowIndex];
+    switch (boardCell) {
+      case BoardCell.Player1:
+        return BoardCell.Player1 === player;
+      case BoardCell.Player2:
+        return BoardCell.Player2 === player;
+      default:
+        return false;
+    }
   }
 }
