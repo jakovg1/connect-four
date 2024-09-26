@@ -17,7 +17,6 @@ export class GameSettingsService {
 
   constructor(private aiAdversaryService: AiAdversaryService) {
     this.difficulty = Difficulty.Medium;
-    this.resetHighScore();
   }
 
   public set difficulty(difficulty: Difficulty) {
