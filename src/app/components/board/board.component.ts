@@ -50,7 +50,7 @@ export class BoardComponent implements OnInit {
     if (this.suspendPlay || !this.board.isValidMove(column)) return;
     const winner = this.boardService.addTokenToColumn(column, this.board);
     if (!!winner) {
-      this.announceEndOfGame();
+      this.announceEndOfGame(winner);
       return;
     }
     this.board.toggleTurnOfPlayer();
@@ -64,8 +64,7 @@ export class BoardComponent implements OnInit {
           this.board
         );
         if (!!winner) {
-          this.gameSettingsService.updateHighscore(winner);
-          this.announceEndOfGame();
+          this.announceEndOfGame(winner);
           return;
         }
         this.suspendPlay = false;
@@ -82,13 +81,14 @@ export class BoardComponent implements OnInit {
     this.winnerAnimation = false;
   }
 
-  private announceEndOfGame(): void {
+  private announceEndOfGame(winner: BoardCell): void {
     this.suspendPlay = true;
     this.winnerAnimation = true;
 
     setTimeout(() => {
       this.resetGame();
       this.endGame.emit();
+      this.gameSettingsService.updateHighscore(winner);
     }, PAUSE_AT_END_OF_GAME); //pause for displaying winner
   }
 }
