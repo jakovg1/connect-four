@@ -53,7 +53,7 @@ export class BoardComponent implements OnInit {
       this.announceEndOfGame();
       return;
     }
-    this.togglePlayer();
+    this.board.toggleTurnOfPlayer();
 
     if (this.gameSettingsService.gameMode == GameMode.PlayerVsComputer) {
       this.suspendPlay = true;
@@ -69,7 +69,7 @@ export class BoardComponent implements OnInit {
           return;
         }
         this.suspendPlay = false;
-        this.togglePlayer();
+        this.board.toggleTurnOfPlayer();
       });
     }
   }
@@ -90,12 +90,5 @@ export class BoardComponent implements OnInit {
       this.resetGame();
       this.endGame.emit();
     }, PAUSE_AT_END_OF_GAME); //pause for displaying winner
-  }
-
-  private togglePlayer(): void {
-    this.board.turnOfPlayer =
-      this.board.turnOfPlayer == BoardCell.Player1
-        ? BoardCell.Player2
-        : BoardCell.Player1;
   }
 }

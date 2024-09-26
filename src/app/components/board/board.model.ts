@@ -25,7 +25,7 @@ export class Board {
     return clonedBoard;
   }
 
-  public toggleTurn(): void {
+  public toggleTurnOfPlayer(): void {
     this.turnOfPlayer =
       this.turnOfPlayer === BoardCell.Player1
         ? BoardCell.Player2
