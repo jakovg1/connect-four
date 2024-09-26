@@ -26,23 +26,22 @@
   position: absolute;
   right: 20px;
   top: 20px;
-  display: flex space-between;
+  display: flex;
   flex-direction: column;
 
   .title {
     display: flex;
+    flex: 0.8;
     text-align: center;
     justify-content: center;
     line-height: 100%;
     font-size: x-large;
     margin: 4px;
-    height: 40%;
   }
   .main-panel {
     display: flex;
-    flex-direction: row;
+    flex: 1;
     margin: 0 4px 4px 4px;
-    height: 60%;
 
     .subpanel {
       display: flex;
