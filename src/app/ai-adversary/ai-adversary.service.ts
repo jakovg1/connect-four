@@ -70,7 +70,7 @@ export class AiAdversaryService {
         if (winner == BoardCell.Player2) return { column, score: 1_000_000 };
       }
 
-      board.toggleTurn();
+      board.toggleTurnOfPlayer();
       const move = this.minimax(board, depth - 1);
       validMoves[column] = move;
       result[column] = move;

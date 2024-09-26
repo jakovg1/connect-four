@@ -22,12 +22,6 @@ export class BoardService {
     return;
   }
 
-  public toggleTurn(turnOfPlayer: BoardCell): BoardCell {
-    return turnOfPlayer === BoardCell.Player1
-      ? BoardCell.Player2
-      : BoardCell.Player1;
-  }
-
   private checkForEndOfGame(
     columnIndex: number,
     rowIndex: number,
