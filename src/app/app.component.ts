@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { BoardComponent } from './components/board/board.component';
 import { Difficulty, GameMode } from './components/board/board.constants';
 import { GameSettingsService } from './game-settings.service';
+import { ActiveMenu } from './app.constants';
 
 @Component({
   selector: 'app-root',
@@ -12,17 +13,21 @@ export class AppComponent {
   @ViewChild(BoardComponent) private board!: BoardComponent;
   public DifficultyEnum = Difficulty;
   public GameModeEnum = GameMode;
+  public ActiveMenuEnum = ActiveMenu;
+
+  public activeMenu = ActiveMenu.MainMenu;
+
   public isAppStartup = true;
-
   public overlayAnimationSpeed = 500;
+  public menusAreVisible: boolean = true;
 
-  constructor(public gameSettingsService: GameSettingsService) {}
-
-  public menuActive: boolean = true;
+  constructor(public gameSettingsService: GameSettingsService) {
+    this.activeMenu = ActiveMenu.MainMenu;
+  }
 
   public newGame(): void {
     this.isAppStartup = false;
-    this.menuActive = false;
+    this.menusAreVisible = false;
     this.board.resetGame();
   }
 

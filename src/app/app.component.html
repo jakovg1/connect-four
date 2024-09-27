@@ -1,6 +1,8 @@
 <div class="background">
-  <app-board (endGame)="this.menuActive = true"></app-board>
+  <!-- Board -->
+  <app-board (endGame)="this.menusAreVisible = true"></app-board>
 
+  <!-- Highscore -->
   <div class="highscore">
     <div class="title">Highscore</div>
     <div class="main-panel">
@@ -14,11 +16,12 @@
   </div>
 </div>
 
+<!-- Main menu-->
 <div
   class="menu"
   [ngClass]="{
-    disappear: !menuActive,
-    appear: menuActive && !this.isAppStartup
+    'fade-out': !menusAreVisible,
+    'fade-in': menusAreVisible && !this.isAppStartup,
   }"
   [ngStyle]="{ 'animation-duration': overlayAnimationSpeed + 'ms' }"
 >
@@ -27,11 +30,55 @@
     <span class="red-color">four</span></span
   >
   <div class="menu-item" (click)="newGame()">Play</div>
+  <div
+    class="menu-item"
+    (click)="this.activeMenu = ActiveMenuEnum.SettingsMenu"
+  >
+    Settings
+  </div>
+  <div class="menu-item" (click)="this.activeMenu = ActiveMenuEnum.HelpMenu">
+    Help
+  </div>
+</div>
+
+<!-- Settings menu-->
+<div
+  class="menu"
+  *ngIf="this.activeMenu === ActiveMenuEnum.SettingsMenu"
+  [ngClass]="{
+    'sub-menu-slide-in': this.activeMenu === ActiveMenuEnum.SettingsMenu,
+    'sub-menu-slide-out': this.activeMenu !== ActiveMenuEnum.SettingsMenu,
+  }"
+>
+  <div class="game-title">Settings</div>
   <div class="menu-item" (click)="this.gameSettingsService.toggleDifficulty()">
     Toggle difficulty: {{ displayDifficulty() }}
   </div>
   <div class="menu-item" (click)="this.gameSettingsService.toggleGameMode()">
     Toggle game mode: {{ displayGameMode() }}
   </div>
+  <div class="back-arrow" (click)="this.activeMenu = ActiveMenuEnum.MainMenu">
+    backArrow
+  </div>
 </div>
-<!-- <router-outlet></router-outlet> -->
+
+<div
+  class="menu"
+  *ngIf="this.activeMenu === ActiveMenuEnum.HelpMenu"
+  [ngClass]="{
+  'sub-menu-slide-in': this.activeMenu === ActiveMenuEnum.HelpMenu,
+  'sub-menu-slide-out': this.activeMenu !== ActiveMenuEnum.HelpMenu,
+}"
+>
+  <div class="game-title">Help</div>
+
+  <div class="back-arrow" (click)="this.activeMenu = ActiveMenuEnum.MainMenu">
+    backArrow
+  </div>
+</div>
+
+<!-- <div>{{ ActiveMenuEnum[this.activeMenu] }}</div> -->
+
+<!-- <div class="background">
+  <router-outlet></router-outlet>
+</div> -->
