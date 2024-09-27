@@ -22,6 +22,10 @@
   }"
   [ngStyle]="{ 'animation-duration': overlayAnimationSpeed + 'ms' }"
 >
+  <span class="game-title"
+    ><span class="blue-color">Connect </span> - -
+    <span class="red-color">four</span></span
+  >
   <div class="menu-item" (click)="newGame()">Play</div>
   <div class="menu-item" (click)="this.gameSettingsService.toggleDifficulty()">
     Toggle difficulty: {{ displayDifficulty() }}

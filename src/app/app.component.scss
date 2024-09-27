@@ -3,7 +3,6 @@
 * {
   margin: 0px;
   padding: 0px;
-  background-color: rgb(100, 100, 100);
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -12,7 +11,7 @@
   flex-direction: column-reverse;
   justify-content: center;
   align-items: center;
-  background-color: rgb(100, 100, 100);
+  background-color: $light-background;
   overflow: hidden;
 
   width: 100%;
@@ -20,7 +19,7 @@
 }
 
 .highscore {
-  background-color: rgba(37, 37, 37, 1);
+  background-color: $dark-background;
   width: 200px;
   height: 80px;
   position: absolute;
@@ -30,6 +29,7 @@
   flex-direction: column;
 
   .title {
+    background-color: $light-background;
     display: flex;
     flex: 0.8;
     text-align: center;
@@ -69,7 +69,7 @@
 
   height: 100%;
   width: 100%;
-  background-color: rgba(37, 37, 37, 1); //opacity?
+  background-color: $dark-background; //opacity?
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -82,6 +82,13 @@
   display: none;
   opacity: 0;
   // background-color: red;
+}
+
+.game-title {
+  font-size: 50px;
+  font-weight: bolder;
+  color: aliceblue;
+  margin-bottom: 20px;
 }
 
 .menu-item {
