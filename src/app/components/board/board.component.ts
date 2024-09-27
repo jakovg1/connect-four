@@ -2,6 +2,7 @@ import {
   ChangeDetectorRef,
   Component,
   EventEmitter,
+  HostListener,
   OnInit,
   Output,
 } from '@angular/core';
@@ -23,7 +24,6 @@ import { GameSettingsService } from 'src/app/game-settings.service';
 })
 export class BoardComponent implements OnInit {
   @Output() public endGame: EventEmitter<void> = new EventEmitter<void>();
-
   public boardWidth = BOARD_WIDTH;
   public boardHeight = BOARD_HEIGHT;
 
@@ -49,6 +49,7 @@ export class BoardComponent implements OnInit {
   }
 
   public addToken(column: number): void {
+    debugger;
     if (this.suspendPlay || !this.board.isValidMove(column)) return;
     const winner = this.boardService.addTokenToColumn(column, this.board);
     if (!!winner) {
@@ -73,6 +74,18 @@ export class BoardComponent implements OnInit {
         this.board.toggleTurnOfPlayer();
       });
     }
+  }
+
+  //control adding tokens with number keys 1-7
+  @HostListener('window:keydown', ['$event'])
+  public handleNumberKeysDown(event: KeyboardEvent): void {
+    try {
+      const columnToPlay = Number(event.key) - 1;
+      console.log(event.key, columnToPlay);
+      if (columnToPlay >= 0 && columnToPlay <= 6) {
+        this.addToken(columnToPlay);
+      }
+    } catch {}
   }
 
   public resetGame(): void {
