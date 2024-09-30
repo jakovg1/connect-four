@@ -57,9 +57,10 @@
   <div class="menu-item" (click)="this.gameSettingsService.toggleGameMode()">
     Toggle game mode: {{ displayGameMode() }}
   </div>
-  <div class="back-arrow" (click)="this.activeMenu = ActiveMenuEnum.MainMenu">
-    backArrow
-  </div>
+  <i
+    class="pi pi-chevron-left back-arrow"
+    (click)="this.activeMenu = ActiveMenuEnum.MainMenu"
+  ></i>
 </div>
 
 <div
@@ -72,9 +73,10 @@
 >
   <div class="game-title">Help</div>
 
-  <div class="back-arrow" (click)="this.activeMenu = ActiveMenuEnum.MainMenu">
-    backArrow
-  </div>
+  <i
+    class="pi pi-chevron-left back-arrow"
+    (click)="this.activeMenu = ActiveMenuEnum.MainMenu"
+  ></i>
 </div>
 
 <!-- <div>{{ ActiveMenuEnum[this.activeMenu] }}</div> -->

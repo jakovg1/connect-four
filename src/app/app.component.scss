@@ -114,9 +114,11 @@
 }
 
 .back-arrow {
-  background-color: red;
-  height: 40px;
-  width: 80px;
+  position: absolute;
+  left: 40px;
+  top: 40px;
+  font-size: 10vh;
+  color: aliceblue;
 }
 
 .fade-out {
