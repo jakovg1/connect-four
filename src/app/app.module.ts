@@ -10,6 +10,7 @@ import { MainMenuComponent } from './menu/main-menu/main-menu.component';
 import { SettingsMenuComponent } from './menu/settings-menu/settings-menu.component';
 import { ToastModule } from 'primeng/toast';
 import { appRoutingModule } from './app.routes';
+import { MessageService } from 'primeng/api';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,7 @@ import { appRoutingModule } from './app.routes';
     ToastModule,
     appRoutingModule,
   ],
-  providers: [],
+  providers: [MessageService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

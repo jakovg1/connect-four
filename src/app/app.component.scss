@@ -62,7 +62,7 @@
 }
 
 .menu {
-  z-index: 100;
+  //   z-index: 100;
   position: absolute;
   left: 0px;
   top: 0px;
@@ -87,7 +87,7 @@
 .game-title {
   font-size: 50px;
   font-weight: bolder;
-  color: aliceblue;
+  color: $light-misc;
   margin-bottom: 20px;
 }
 
@@ -113,12 +113,19 @@
   }
 }
 
+.help-description {
+  color: $light-misc;
+  font-size: xx-large;
+  line-height: 60px;
+  margin: 40px;
+}
+
 .back-arrow {
   position: absolute;
   left: 40px;
   top: 40px;
   font-size: 10vh;
-  color: aliceblue;
+  color: $light-misc;
 }
 
 .fade-out {

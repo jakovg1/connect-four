@@ -1,4 +1,4 @@
-<div class="background">
+<!-- <div class="background">
   <!-- Board -->
   <app-board (endGame)="this.menusAreVisible = true"></app-board>
 
@@ -57,6 +57,7 @@
   <div class="menu-item" (click)="this.gameSettingsService.toggleGameMode()">
     Toggle game mode: {{ displayGameMode() }}
   </div>
+  <div class="menu-item" (click)="this.resetHighscore()">Reset highscore</div>
   <i
     class="pi pi-chevron-left back-button"
     (click)="this.activeMenu = ActiveMenuEnum.MainMenu"
@@ -77,10 +78,12 @@
     class="pi pi-chevron-left back-button"
     (click)="this.activeMenu = ActiveMenuEnum.MainMenu"
   ></i>
+  <p class="help-description">
+    Win the game by connecting four tokens of your color in a row. <br />
+    You can use the mouse button or number keys to set tokens. <br />
+  </p>
+  <p class="help-description">May the best color win!</p>
 </div>
+ -->
 
-<!-- <div>{{ ActiveMenuEnum[this.activeMenu] }}</div> -->
-
-<!-- <div class="background">
-  <router-outlet></router-outlet>
-</div> -->
+ <div class="menu-item" (click)="this.resetHighscore()">Reset highscore</div>

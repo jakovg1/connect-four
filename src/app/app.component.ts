@@ -3,6 +3,7 @@ import { BoardComponent } from './components/board/board.component';
 import { Difficulty, GameMode } from './components/board/board.constants';
 import { GameSettingsService } from './game-settings.service';
 import { ActiveMenu } from './app.constants';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-root',
@@ -21,7 +22,10 @@ export class AppComponent {
   public overlayAnimationSpeed = 500;
   public menusAreVisible: boolean = true;
 
-  constructor(public gameSettingsService: GameSettingsService) {
+  constructor(
+    public gameSettingsService: GameSettingsService,
+    public messageService: MessageService
+  ) {
     this.activeMenu = ActiveMenu.MainMenu;
   }
 
@@ -36,5 +40,15 @@ export class AppComponent {
   }
   public displayDifficulty(): string {
     return Difficulty[this.gameSettingsService.difficulty];
+  }
+
+  public resetHighscore(): void {
+    console.log('Reset highscore clicked');
+    this.gameSettingsService.resetHighScore();
+    this.messageService.add({
+      severity: 'info',
+      summary: 'Info',
+      detail: 'Highscore has been reset!',
+    });
   }
 }

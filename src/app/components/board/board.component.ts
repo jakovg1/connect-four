@@ -50,7 +50,6 @@ export class BoardComponent implements OnInit {
   }
 
   public addToken(column: number): void {
-    debugger;
     if (this.suspendPlay || !this.board.isValidMove(column)) return;
     const winner = this.boardService.addTokenToColumn(column, this.board);
     if (!!winner) {
@@ -82,7 +81,6 @@ export class BoardComponent implements OnInit {
   public handleNumberKeysDown(event: KeyboardEvent): void {
     try {
       const columnToPlay = Number(event.key) - 1;
-      console.log(event.key, columnToPlay);
       if (columnToPlay >= 0 && columnToPlay <= 6) {
         this.addToken(columnToPlay);
       }

@@ -1,7 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/pink-bluegrey.css";
 @import "~primeicons/primeicons.css";
-@import "src/styles/variables";
+@import "src/styles/_variables";
 html,
 body {
   height: 100%;
@@ -32,5 +32,5 @@ body {
   left: 40px;
   top: 40px;
   font-size: 10vh;
-  color: aliceblue;
+  color: $light-misc;
 }
