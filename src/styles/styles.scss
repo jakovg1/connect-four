@@ -26,3 +26,11 @@ body {
 .blue-color {
   color: $blue-player-color;
 }
+
+.back-button {
+  position: absolute;
+  left: 40px;
+  top: 40px;
+  font-size: 10vh;
+  color: aliceblue;
+}

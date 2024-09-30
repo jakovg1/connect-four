@@ -45,6 +45,7 @@ export class BoardComponent implements OnInit {
   }
 
   public ngOnInit(): void {
+    console.log('BOARD!');
     this.resetGame();
   }
 
@@ -96,14 +97,18 @@ export class BoardComponent implements OnInit {
     this.winnerAnimation = false;
   }
 
+  public exitToMainMenu(): void {
+    this.resetGame();
+    this.endGame.emit();
+  }
+
   private announceEndOfGame(winner: BoardCell): void {
     this.suspendPlay = true;
     this.winnerAnimation = true;
 
     setTimeout(() => {
-      this.resetGame();
-      this.endGame.emit();
       this.gameSettingsService.updateHighscore(winner);
+      this.exitToMainMenu();
     }, PAUSE_AT_END_OF_GAME); //pause for displaying winner
   }
 }

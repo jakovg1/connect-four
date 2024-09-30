@@ -8,6 +8,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { BoardComponent } from './components/board/board.component';
 import { MainMenuComponent } from './menu/main-menu/main-menu.component';
 import { SettingsMenuComponent } from './menu/settings-menu/settings-menu.component';
+import { ToastModule } from 'primeng/toast';
 import { appRoutingModule } from './app.routes';
 
 @NgModule({
@@ -22,6 +23,7 @@ import { appRoutingModule } from './app.routes';
     BrowserAnimationsModule,
     AppRoutingModule,
     NoopAnimationsModule,
+    ToastModule,
     appRoutingModule,
   ],
   providers: [],
