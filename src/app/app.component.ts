@@ -32,7 +32,6 @@ export class AppComponent {
   public newGame(): void {
     this.isAppStartup = false;
     this.menusAreVisible = false;
-    this.board.resetGame();
   }
 
   public displayGameMode(): string {

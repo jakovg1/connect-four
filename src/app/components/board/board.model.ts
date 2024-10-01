@@ -35,19 +35,11 @@ export class Board {
   public getColumnHeight(column: number): number {
     if (column < 0 || column > BOARD_WIDTH - 1)
       throw new Error('Invalid column index!');
-    for (let i = 0; i < BOARD_HEIGHT; i++) {
-      if (this.boardArray[column][i] == BoardCell.Empty) return i;
+    let i = -1;
+    for (; i < BOARD_HEIGHT - 1; i++) {
+      if (this.boardArray[column][i + 1] == BoardCell.Empty) break;
     }
-    return BOARD_HEIGHT;
-  }
-
-  //used for CSS classes
-  public isCellBlue(columnIndex: number, rowIndex: number): boolean {
-    return this.isCellPlayer(columnIndex, rowIndex, BoardCell.Player1);
-  }
-
-  public isCellRed(columnIndex: number, rowIndex: number): boolean {
-    return this.isCellPlayer(columnIndex, rowIndex, BoardCell.Player2);
+    return i + 1;
   }
 
   public resetBoard(): void {
@@ -58,6 +50,15 @@ export class Board {
 
   public isValidMove(column: number): boolean {
     return this.getColumnHeight(column) < BOARD_HEIGHT;
+  }
+
+  //used for CSS classes
+  public isCellBlue(columnIndex: number, rowIndex: number): boolean {
+    return this.isCellPlayer(columnIndex, rowIndex, BoardCell.Player1);
+  }
+
+  public isCellRed(columnIndex: number, rowIndex: number): boolean {
+    return this.isCellPlayer(columnIndex, rowIndex, BoardCell.Player2);
   }
 
   /**

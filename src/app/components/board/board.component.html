@@ -2,7 +2,7 @@
   <div
     class="board-column"
     *ngFor="let column of [].constructor(boardWidth); let columnIndex = index"
-    (click)="addToken(columnIndex)"
+    (click)="playerAddToken(columnIndex)"
   >
     <div class="column-container">
       <div
@@ -28,21 +28,24 @@
       ></div>
     </div>
 
-    <!-- <span>{{ getColumnHeight(columnIndex) }}</span> -->
+    <!-- <span>{{ this.board.getColumnHeight(columnIndex) }}</span> -->
     <!-- REMOVE THIS; FOR DEBUGGING pURPOSES -->
   </div>
 
   <!-- Winner animation -->
   <div *ngIf="winnerAnimation" class="winner-animation">
-    <div class="color-change">
-      <span
-        [ngClass]="{
-          'blue-color': board.turnOfPlayer === BoardCell.Player1,
-          'red-color': board.turnOfPlayer === BoardCell.Player2
-        }"
-        >{{ board.turnOfPlayer == BoardCell.Player1 ? "Blue" : "Red" }}</span
-      >
-      wins!
+    <div class="winner-animation-title">
+      <span *ngIf="board.turnOfPlayer !== BoardCell.Empty">
+        <span
+          [ngClass]="{
+            'blue-color': board.turnOfPlayer === BoardCell.Player1,
+            'red-color': board.turnOfPlayer === BoardCell.Player2
+          }"
+          >{{ board.turnOfPlayer === BoardCell.Player1 ? "Blue" : "Red" }}</span
+        >
+        wins!
+      </span>
+      <span *ngIf="board.turnOfPlayer === BoardCell.Empty">Draw!</span>
     </div>
   </div>
   <i class="pi pi-times back-button" (click)="this.exitToMainMenu()"></i>

@@ -49,31 +49,44 @@ export class BoardComponent implements OnInit {
     this.resetGame();
   }
 
-  public addToken(column: number): void {
+  public playerAddToken(column: number): void {
     if (this.suspendPlay || !this.board.isValidMove(column)) return;
-    const winner = this.boardService.addTokenToColumn(column, this.board);
-    if (!!winner) {
-      this.announceEndOfGame(winner);
-      return;
-    }
+    const isEndOfGame = this.executeMove(column);
+    if (isEndOfGame) return;
     this.board.toggleTurnOfPlayer();
 
     if (this.gameSettingsService.gameMode == GameMode.PlayerVsComputer) {
-      this.suspendPlay = true;
-      setTimeout(() => {
-        const computersMove = this.aiAdversary.getNextMove(this.board);
-        const winner = this.boardService.addTokenToColumn(
-          computersMove,
-          this.board
-        );
-        if (!!winner) {
-          this.announceEndOfGame(winner);
-          return;
-        }
-        this.suspendPlay = false;
-        this.board.toggleTurnOfPlayer();
-      });
+      this.computerAddToken();
     }
+  }
+
+  public computerAddToken(): void {
+    this.suspendPlay = true;
+    setTimeout(() => {
+      const computersMove: number = this.aiAdversary.getNextMove(this.board);
+      const isEndOfGame = this.executeMove(computersMove);
+      if (isEndOfGame) return;
+      this.suspendPlay = false;
+      this.board.toggleTurnOfPlayer();
+    });
+  }
+
+  /**
+   * Executes the move defined by parameter move. If game has ended in a win or draw, return true,
+   * else return false
+   * @param move
+   * @returns
+   */
+  public executeMove(move: number): boolean {
+    const winner: BoardCell | undefined = this.boardService.addTokenToColumn(
+      move,
+      this.board
+    );
+    if (winner !== undefined) {
+      this.announceEndOfGame(winner);
+      return true;
+    }
+    return false;
   }
 
   //control adding tokens with number keys 1-7
@@ -82,7 +95,7 @@ export class BoardComponent implements OnInit {
     try {
       const columnToPlay = Number(event.key) - 1;
       if (columnToPlay >= 0 && columnToPlay <= 6) {
-        this.addToken(columnToPlay);
+        this.playerAddToken(columnToPlay);
       }
     } catch {}
   }
@@ -91,7 +104,7 @@ export class BoardComponent implements OnInit {
     this.board.resetBoard();
 
     this.board.turnOfPlayer = BoardCell.Player1;
-    this.suspendPlay = false; // if player is not playing - refactor later on if needed
+    this.suspendPlay = false;
     this.winnerAnimation = false;
   }
 
@@ -102,11 +115,16 @@ export class BoardComponent implements OnInit {
   }
 
   private announceEndOfGame(winner: BoardCell): void {
+    if (winner === BoardCell.Empty) {
+      this.board.turnOfPlayer = BoardCell.Empty;
+    }
     this.suspendPlay = true;
     this.winnerAnimation = true;
 
     setTimeout(() => {
-      this.gameSettingsService.updateHighscore(winner);
+      if (winner !== BoardCell.Empty) {
+        this.gameSettingsService.updateHighscore(winner);
+      }
       this.exitToMainMenu();
     }, PAUSE_AT_END_OF_GAME); //pause for displaying winner
   }

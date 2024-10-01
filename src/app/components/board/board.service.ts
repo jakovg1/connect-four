@@ -15,11 +15,13 @@ export class BoardService {
       if (boardArray[column][row] == BoardCell.Empty) {
         boardArray[column][row] = turnOfPlayer;
         const winner = this.checkForEndOfGame(column, row, board);
-        if (!!winner) return winner;
+        if (!!winner) return winner; // win
         break;
       }
     }
-    return;
+    if (this.checkIfNoMoreMovesAreAvailable(board)) return BoardCell.Empty; // draw
+
+    return; // no win/draw, game continues
   }
 
   private checkForEndOfGame(
@@ -103,7 +105,7 @@ export class BoardService {
 
   private checkIfNoMoreMovesAreAvailable(board: Board): boolean {
     for (let column = 0; column < BOARD_WIDTH; column++) {
-      if (board.getColumnHeight(column) < BOARD_HEIGHT) return false;
+      if (board.isValidMove(column)) return false;
     }
     return true;
   }

@@ -1,6 +1,9 @@
 <div class="background">
   <!-- Board -->
-  <app-board (endGame)="this.menusAreVisible = true"></app-board>
+  <app-board
+    *ngIf="!menusAreVisible"
+    (endGame)="this.menusAreVisible = true"
+  ></app-board>
 
   <!-- Highscore -->
   <div class="highscore">
