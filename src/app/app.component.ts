@@ -43,7 +43,6 @@ export class AppComponent {
   }
 
   public resetHighscore(): void {
-    console.log('Reset highscore clicked');
     this.gameSettingsService.resetHighScore();
     this.messageService.add({
       severity: 'info',

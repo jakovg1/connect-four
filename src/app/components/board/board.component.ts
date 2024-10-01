@@ -97,6 +97,7 @@ export class BoardComponent implements OnInit {
 
   public exitToMainMenu(): void {
     this.resetGame();
+    this.suspendPlay = true;
     this.endGame.emit();
   }
 

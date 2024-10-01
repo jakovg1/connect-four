@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BOARD_WIDTH, Difficulty } from '../components/board/board.constants';
 import { Board, BoardCell } from '../components/board/board.model';
 import { BoardService } from '../components/board/board.service';
+import { getRandomNumberInRange } from '../utility/utils';
 
 export interface PlayerMove {
   readonly column: number;
@@ -48,7 +49,7 @@ export class AiAdversaryService {
     const optimalMove = this.minimax(initialBoard, this._maxDepth);
     let { column } = optimalMove;
     if (column === -1) {
-      column = Math.ceil(Math.random() * (BOARD_WIDTH - 1));
+      column = getRandomNumberInRange(0, BOARD_WIDTH - 1);
     }
     return column;
   }
