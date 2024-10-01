@@ -23,7 +23,6 @@ import { MessageService } from 'primeng/api';
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    NoopAnimationsModule,
     ToastModule,
     appRoutingModule,
   ],

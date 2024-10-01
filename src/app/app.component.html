@@ -1,4 +1,4 @@
-<!-- <div class="background">
+<div class="background">
   <!-- Board -->
   <app-board (endGame)="this.menusAreVisible = true"></app-board>
 
@@ -62,6 +62,7 @@
     class="pi pi-chevron-left back-button"
     (click)="this.activeMenu = ActiveMenuEnum.MainMenu"
   ></i>
+  <p-toast></p-toast>
 </div>
 
 <div
@@ -84,6 +85,3 @@
   </p>
   <p class="help-description">May the best color win!</p>
 </div>
- -->
-
- <div class="menu-item" (click)="this.resetHighscore()">Reset highscore</div>
