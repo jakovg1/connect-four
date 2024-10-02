@@ -62,13 +62,11 @@ export class BoardComponent implements OnInit {
 
   public computerAddToken(): void {
     this.suspendPlay = true;
-    setTimeout(() => {
-      const computersMove: number = this.aiAdversary.getNextMove(this.board);
-      const isEndOfGame = this.executeMove(computersMove);
-      if (isEndOfGame) return;
-      this.suspendPlay = false;
-      this.board.toggleTurnOfPlayer();
-    });
+    const computersMove: number = this.aiAdversary.getNextMove(this.board);
+    const isEndOfGame = this.executeMove(computersMove);
+    if (isEndOfGame) return;
+    this.suspendPlay = false;
+    this.board.toggleTurnOfPlayer();
   }
 
   /**
