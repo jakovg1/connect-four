@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BOARD_WIDTH, Difficulty } from '../components/board/board.constants';
 import { Board, BoardCell } from '../components/board/board.model';
 import { BoardService } from '../components/board/board.service';
-import { getRandomNumberInRange } from '../utility/utils';
+import { getRandomIntInRange } from '../utility/utils';
 
 export interface PlayerMove {
   readonly column: number;
@@ -48,9 +48,6 @@ export class AiAdversaryService {
     this.tree = {};
     const optimalMove = this.minimax(initialBoard, this._maxDepth);
     let { column } = optimalMove;
-    if (column === -1) {
-      column = getRandomNumberInRange(0, BOARD_WIDTH - 1);
-    }
     return column;
   }
 
@@ -66,9 +63,17 @@ export class AiAdversaryService {
       if (!intialBoard.isValidMove(column)) continue;
       const board = intialBoard.cloneBoard();
       const winner = this.boardService.addTokenToColumn(column, board);
-      if (!!winner) {
-        if (winner == BoardCell.Player1) return { column, score: -1_000_000 };
-        if (winner == BoardCell.Player2) return { column, score: 1_000_000 };
+      if (winner !== undefined) {
+        switch (winner) {
+          case BoardCell.Player1:
+            return { column, score: -1_000_000 };
+          case BoardCell.Player2:
+            return { column, score: 1_000_000 };
+          case BoardCell.Empty:
+            return { column, score: 0 };
+          default:
+            return { column, score: 0 };
+        }
       }
 
       board.toggleTurnOfPlayer();
@@ -77,28 +82,13 @@ export class AiAdversaryService {
       result[column] = move;
     }
     let optimalMoveIndex: number;
+    let minMaxFunction: Function;
     if (intialBoard.turnOfPlayer == BoardCell.Player2) {
-      //player2 ili 1??
-      //max
-      const maxScore = Math.max(
-        ...Object.values(validMoves).map((move) => move.score)
-      );
-      optimalMoveIndex = +(
-        Object.entries(validMoves).find(
-          ([_, validMove]) => validMove.score === maxScore
-        )?.[0] || 0
-      );
+      minMaxFunction = Math.max;
     } else {
-      //min
-      const minScore = Math.min(
-        ...Object.values(validMoves).map((move) => move.score)
-      );
-      optimalMoveIndex = +(
-        Object.entries(validMoves).find(
-          ([_, validMove]) => validMove.score === minScore
-        )?.[0] || 0
-      );
+      minMaxFunction = Math.min;
     }
+    optimalMoveIndex = this.getOptimalMoveIndex(validMoves, minMaxFunction);
 
     const moveScores = Object.values(validMoves).map((move) => move.score);
     const averageMoveScore =
@@ -109,5 +99,28 @@ export class AiAdversaryService {
       column: optimalMoveIndex,
       ...result,
     } as PlayerMove;
+  }
+
+  private getOptimalMoveIndex(
+    validMoves: Record<number, PlayerMove>,
+    minOrMaxFunction: Function
+  ): number {
+    if (Object.keys(validMoves).length == 0) return -1; // no moves available
+
+    const optimalScore = minOrMaxFunction(
+      ...Object.values(validMoves).map((move) => move.score)
+    );
+    const moveIndicesOfOptimalScore = Object.keys(validMoves).filter(
+      (column) => validMoves[Number(column)].score === optimalScore
+    );
+
+    const randomMoveIndexOfOptimalScore = getRandomIntInRange(
+      0,
+      moveIndicesOfOptimalScore.length
+    );
+    const optimalMoveIndex: number = Number(
+      moveIndicesOfOptimalScore[randomMoveIndexOfOptimalScore]
+    );
+    return optimalMoveIndex;
   }
 }
