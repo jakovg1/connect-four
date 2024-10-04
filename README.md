@@ -1,6 +1,6 @@
-# StackFour
+# Connect four
 
-Simple game of stack 4 chips in a row to win!
+Simple game of connecting 4 tokens of your color in a row to win!
 
 ## General info
 
