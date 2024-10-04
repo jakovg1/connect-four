@@ -9,7 +9,6 @@
 .background {
   display: flex;
   flex-direction: column-reverse;
-  justify-content: center;
   align-items: center;
   background-color: $light-background;
   overflow: hidden;
@@ -19,6 +18,7 @@
 }
 
 .highscore {
+  z-index: 10;
   background-color: $dark-background;
   width: 200px;
   height: 80px;
@@ -62,7 +62,7 @@
 }
 
 .menu {
-  //   z-index: 100;
+  z-index: 10;
   position: absolute;
   left: 0px;
   top: 0px;

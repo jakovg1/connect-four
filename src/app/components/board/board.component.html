@@ -1,35 +1,26 @@
 <div class="board">
   <div
-    class="board-column"
+    class="token-column-container"
     *ngFor="let column of [].constructor(boardWidth); let columnIndex = index"
     (click)="playerAddToken(columnIndex)"
   >
-    <div class="column-container">
+    <div
+      class="token-container"
+      *ngFor="
+        let tokenContainer of [].constructor(boardHeight);
+        let rowIndex = index
+      "
+    >
+      <div class="token empty"></div>
       <div
-        class="board-hole"
-        *ngFor="
-          let boardHole of [].constructor(boardHeight);
-          let rowIndex = index
-        "
-      ></div>
-    </div>
-
-    <div class="column-container">
-      <div
-        class="board-token"
-        *ngFor="
-          let boardHole of [].constructor(board.getColumnHeight(columnIndex));
-          let rowIndex = index
-        "
+        class="token player"
+        *ngIf="this.board.boardArray[columnIndex][rowIndex] !== BoardCell.Empty"
         [ngClass]="{
           'blue-background-color': board.isCellBlue(columnIndex, rowIndex),
           'red-background-color': board.isCellRed(columnIndex, rowIndex)
         }"
       ></div>
     </div>
-
-    <!-- <span>{{ this.board.getColumnHeight(columnIndex) }}</span> -->
-    <!-- REMOVE THIS; FOR DEBUGGING pURPOSES -->
   </div>
 
   <!-- Winner animation -->
