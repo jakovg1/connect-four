@@ -40,12 +40,10 @@ export class BoardComponent implements OnInit {
     private aiAdversary: AiAdversaryService,
     public gameSettingsService: GameSettingsService
   ) {
-    // console.log('BOARD INSTANTIATED!!!');
     this.board = new Board();
   }
 
   public ngOnInit(): void {
-    console.log('BOARD!');
     this.resetGame();
   }
 
@@ -73,7 +71,7 @@ export class BoardComponent implements OnInit {
    * Executes the move defined by parameter move. If game has ended in a win or draw, return true,
    * else return false
    * @param move
-   * @returns
+   * @returns true if game has ended, else false
    */
   public executeMove(move: number): boolean {
     const winner: BoardCell | undefined = this.boardService.addTokenToColumn(
