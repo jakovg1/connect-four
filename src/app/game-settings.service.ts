@@ -38,7 +38,6 @@ export class GameSettingsService {
 
   public toggleDifficulty() {
     this.difficulty = (this._difficulty + 1) % 3;
-    // console.log(this.aiAdversaryService.difficulty);
   }
 
   public toggleGameMode(): void {
