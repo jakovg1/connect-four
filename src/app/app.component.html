@@ -48,8 +48,8 @@
   class="menu"
   *ngIf="this.activeMenu === ActiveMenuEnum.SettingsMenu"
   [ngClass]="{
-    'sub-menu-slide-in': this.activeMenu === ActiveMenuEnum.SettingsMenu,
-    'sub-menu-slide-out': this.activeMenu !== ActiveMenuEnum.SettingsMenu,
+    'left-side-slide-in': this.activeMenu === ActiveMenuEnum.SettingsMenu,
+    'left-side-slide-out': this.activeMenu !== ActiveMenuEnum.SettingsMenu,
     }"
 >
   <div class="game-title">Settings</div>
@@ -64,15 +64,14 @@
     class="pi pi-chevron-left back-button"
     (click)="this.activeMenu = ActiveMenuEnum.MainMenu"
   ></i>
-  <p-toast></p-toast>
 </div>
 
 <div
   class="menu"
   *ngIf="this.activeMenu === ActiveMenuEnum.HelpMenu"
   [ngClass]="{
-    'sub-menu-slide-in': this.activeMenu === ActiveMenuEnum.HelpMenu,
-    'sub-menu-slide-out': this.activeMenu !== ActiveMenuEnum.HelpMenu
+    'left-side-slide-in': this.activeMenu === ActiveMenuEnum.HelpMenu,
+    'left-side-slide-out': this.activeMenu !== ActiveMenuEnum.HelpMenu
   }"
 >
   <div class="game-title">Help</div>
@@ -87,3 +86,4 @@
   </p>
   <p class="help-description">May the best color win!</p>
 </div>
+<p-toast></p-toast>
