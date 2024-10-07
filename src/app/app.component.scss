@@ -75,7 +75,7 @@
   align-items: center;
   justify-content: center;
 
-  animation-fill-mode: forwards;
+  overflow-x: hidden;
 }
 
 .hidden {
@@ -129,33 +129,27 @@
 }
 
 .fade-out {
-  // pointer-events: none;
-  animation-name: disappear;
+  animation: disappear 500ms forwards;
 }
 
 .fade-in {
-  // pointer-events: auto;
-  animation-name: appear;
+  animation: appear 500ms forwards;
 }
 
 .sub-menu-slide-in {
-  animation-name: sub-menu-slide-in;
-  animation-fill-mode: forwards;
+  animation: sub-menu-slide-in 200ms forwards ease-in-out;
 }
 
 .sub-menu-slide-out {
-  animation-name: sub-menu-slide-in;
-  animation-fill-mode: forwards;
+  animation: sub-menu-slide-in 200ms forwards ease-in-out;
 }
 
 .main-menu-slide-in {
-  animation-name: main-menu-slide-in;
-  animation-fill-mode: forwards;
+  animation: main-menu-slide-in 200ms forwards ease-in-out;
 }
 
 .main-menu-slide-out {
-  animation-name: main-menu-slide-in;
-  animation-fill-mode: forwards;
+  animation: main-menu-slide-in 200ms forwards ease-in-out;
 }
 
 //animations
@@ -182,28 +176,34 @@
 
 @keyframes sub-menu-slide-in {
   0% {
-    position: 20vw;
+    transform: translateX(20vw);
+    display: none;
   }
   100% {
-    position: 0vw;
+    transform: translateX(0vw);
+    display: flex;
   }
 }
 
 @keyframes sub-menu-slide-out {
   0% {
-    position: 0vw;
+    transform: translateX(0vw);
+    display: flex;
   }
   100% {
-    position: 20vw;
+    transform: translateX(20vw);
+    display: none;
   }
 }
 
 @keyframes main-menu-slide-in {
   0% {
-    position: -20vw;
+    transform: translateX(-20vw);
+    display: flex;
   }
   100% {
-    position: 0vw;
+    transform: translateX(0vw);
+    display: none;
   }
 }
 

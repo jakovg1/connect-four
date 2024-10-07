@@ -26,7 +26,6 @@
     'fade-out': !menusAreVisible,
     'fade-in': menusAreVisible && !this.isAppStartup,
   }"
-  [ngStyle]="{ 'animation-duration': overlayAnimationSpeed + 'ms' }"
 >
   <span class="game-title"
     ><span class="blue-color">Connect </span> - -
@@ -51,7 +50,7 @@
   [ngClass]="{
     'sub-menu-slide-in': this.activeMenu === ActiveMenuEnum.SettingsMenu,
     'sub-menu-slide-out': this.activeMenu !== ActiveMenuEnum.SettingsMenu,
-  }"
+    }"
 >
   <div class="game-title">Settings</div>
   <div class="menu-item" (click)="this.gameSettingsService.toggleDifficulty()">
@@ -72,9 +71,9 @@
   class="menu"
   *ngIf="this.activeMenu === ActiveMenuEnum.HelpMenu"
   [ngClass]="{
-  'sub-menu-slide-in': this.activeMenu === ActiveMenuEnum.HelpMenu,
-  'sub-menu-slide-out': this.activeMenu !== ActiveMenuEnum.HelpMenu,
-}"
+    'sub-menu-slide-in': this.activeMenu === ActiveMenuEnum.HelpMenu,
+    'sub-menu-slide-out': this.activeMenu !== ActiveMenuEnum.HelpMenu
+  }"
 >
   <div class="game-title">Help</div>
 

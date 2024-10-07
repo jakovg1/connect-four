@@ -19,7 +19,6 @@ export class AppComponent {
   public activeMenu = ActiveMenu.MainMenu;
 
   public isAppStartup = true;
-  public overlayAnimationSpeed = 500;
   public menusAreVisible: boolean = true;
 
   constructor(
