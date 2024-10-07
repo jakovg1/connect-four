@@ -6,12 +6,11 @@
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.background {
+.board-background {
   display: flex;
   flex-direction: column-reverse;
   align-items: center;
   background-color: $light-background;
-  overflow: hidden;
 
   width: 100%;
   height: 100%;
@@ -61,27 +60,52 @@
   }
 }
 
-.menu {
+.menu-background {
   z-index: 10;
   position: absolute;
-  left: 0px;
   top: 0px;
+  left: 0px;
 
+  background-color: $dark-background;
   height: 100%;
   width: 100%;
-  background-color: $dark-background; //opacity?
+
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-
-  overflow-x: hidden;
+  overflow: hidden;
+  text-align: center;
 }
 
-.hidden {
-  display: none;
-  opacity: 0;
-  // background-color: red;
+.menu {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow-x: hidden;
+  transition: transform 300ms linear;
+}
+
+.left {
+  transform: translateX(-100vw);
+}
+
+.center {
+  transform: translateX(0vw);
+  transform: translateY(0vh);
+}
+
+.right {
+  transform: translateX(100vw);
+}
+
+.top {
+  transform: translateY(-100vh);
 }
 
 .game-title {
@@ -102,7 +126,6 @@
   font-size: x-large;
   font-weight: bold;
   display: flex;
-  // text-align: center;
   align-items: center;
   justify-content: center;
   transition: background-color 200ms;
@@ -120,12 +143,13 @@
   margin: 40px;
 }
 
-.back-arrow {
+.back-button {
   position: absolute;
   left: 40px;
   top: 40px;
   font-size: 10vh;
   color: $light-misc;
+  transition: transform 500ms ease-in-out;
 }
 
 .fade-out {
@@ -134,22 +158,6 @@
 
 .fade-in {
   animation: appear 500ms forwards;
-}
-
-.left-side-slide-in {
-  animation: right-side-slide-in 600ms forwards ease-in-out;
-}
-
-.left-side-slide-out {
-  animation: right-side-slide-in 200ms forwards ease-in-out;
-}
-
-.right-side-slide-in {
-  animation: left-side-slide-in 200ms forwards ease-in-out;
-}
-
-.right-side-slide-out {
-  animation: left-side-slide-in 200ms forwards ease-in-out;
 }
 
 //animations
@@ -170,50 +178,6 @@
 
   100% {
     opacity: 0;
-    display: none;
-  }
-}
-
-@keyframes right-side-slide-in {
-  0% {
-    transform: translateX(40vw);
-    display: none;
-  }
-  100% {
-    transform: translateX(0vw);
-    display: flex;
-  }
-}
-
-@keyframes right-side-slide-out {
-  0% {
-    transform: translateX(0vw);
-    display: flex;
-  }
-  100% {
-    transform: translateX(40vw);
-    display: none;
-  }
-}
-
-@keyframes left-side-slide-in {
-  0% {
-    transform: translateX(-40vw);
-    display: none;
-  }
-  100% {
-    transform: translateX(0vw);
-    display: flex;
-  }
-}
-
-@keyframes left-side-slide-out {
-  0% {
-    transform: translateX(0vw);
-    display: flex;
-  }
-  100% {
-    transform: transl0ateX(-40vw);
     display: none;
   }
 }

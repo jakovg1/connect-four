@@ -1,4 +1,4 @@
-<div class="background">
+<div class="board-background">
   <!-- Board -->
   <app-board
     *ngIf="!menusAreVisible"
@@ -19,71 +19,90 @@
   </div>
 </div>
 
-<!-- Main menu-->
 <div
-  class="menu"
+  class="menu-background"
   [ngClass]="{
     'fade-out': !menusAreVisible,
     'fade-in': menusAreVisible && !this.isAppStartup,
   }"
 >
-  <span class="game-title"
-    ><span class="blue-color">Connect </span> - -
-    <span class="red-color">four</span></span
-  >
-  <div class="menu-item" (click)="newGame()">Play</div>
+  <!-- Main menu-->
   <div
-    class="menu-item"
-    (click)="this.activeMenu = ActiveMenuEnum.SettingsMenu"
-  >
-    Settings
-  </div>
-  <div class="menu-item" (click)="this.activeMenu = ActiveMenuEnum.HelpMenu">
-    Help
-  </div>
-</div>
-
-<!-- Settings menu-->
-<div
-  class="menu"
-  *ngIf="this.activeMenu === ActiveMenuEnum.SettingsMenu"
-  [ngClass]="{
-    'left-side-slide-in': this.activeMenu === ActiveMenuEnum.SettingsMenu,
-    'left-side-slide-out': this.activeMenu !== ActiveMenuEnum.SettingsMenu,
+    class="menu"
+    [ngClass]="{
+      center: this.activeMenu === ActiveMenuEnum.MainMenu,
+      left: this.activeMenu !== ActiveMenuEnum.MainMenu
     }"
->
-  <div class="game-title">Settings</div>
-  <div class="menu-item" (click)="this.gameSettingsService.toggleDifficulty()">
-    Toggle difficulty: {{ displayDifficulty() }}
+  >
+    <span class="game-title"
+      ><span class="blue-color">Connect </span> - -
+      <span class="red-color">four</span></span
+    >
+    <div class="menu-item" (click)="newGame()">Play</div>
+    <div
+      class="menu-item"
+      (click)="this.activeMenu = ActiveMenuEnum.SettingsMenu"
+    >
+      Settings
+    </div>
+    <div class="menu-item" (click)="this.activeMenu = ActiveMenuEnum.HelpMenu">
+      Help
+    </div>
   </div>
-  <div class="menu-item" (click)="this.gameSettingsService.toggleGameMode()">
-    Toggle game mode: {{ displayGameMode() }}
+
+  <!-- Settings menu-->
+  <div
+    class="menu"
+    [ngClass]="{
+      center: this.activeMenu === ActiveMenuEnum.SettingsMenu,
+      right: this.activeMenu !== ActiveMenuEnum.SettingsMenu
+    }"
+  >
+    <div class="game-title">Settings</div>
+    <div
+      class="menu-item"
+      (click)="this.gameSettingsService.toggleDifficulty()"
+    >
+      Toggle difficulty: {{ displayDifficulty() }}
+    </div>
+    <div class="menu-item" (click)="this.gameSettingsService.toggleGameMode()">
+      Toggle game mode: {{ displayGameMode() }}
+    </div>
+    <div class="menu-item" (click)="this.resetHighscore()">Reset highscore</div>
+    <i
+      class="pi pi-chevron-left back-button"
+      [ngClass]="{
+        center: this.activeMenu === ActiveMenuEnum.SettingsMenu,
+        top: this.activeMenu !== ActiveMenuEnum.SettingsMenu
+      }"
+      (click)="this.activeMenu = ActiveMenuEnum.MainMenu"
+    ></i>
   </div>
-  <div class="menu-item" (click)="this.resetHighscore()">Reset highscore</div>
-  <i
-    class="pi pi-chevron-left back-button"
-    (click)="this.activeMenu = ActiveMenuEnum.MainMenu"
-  ></i>
+
+  <!-- Help menu-->
+  <div
+    class="menu"
+    [ngClass]="{
+      center: this.activeMenu === ActiveMenuEnum.HelpMenu,
+      right: this.activeMenu !== ActiveMenuEnum.HelpMenu
+    }"
+  >
+    <div class="game-title">Help</div>
+
+    <i
+      class="pi pi-chevron-left back-button"
+      [ngClass]="{
+        center: this.activeMenu === ActiveMenuEnum.HelpMenu,
+        top: this.activeMenu !== ActiveMenuEnum.HelpMenu
+      }"
+      (click)="this.activeMenu = ActiveMenuEnum.MainMenu"
+    ></i>
+    <p class="help-description">
+      Win the game by connecting four tokens of your color in a row. <br />
+      You can use the mouse button or number keys to set tokens. <br />
+    </p>
+    <p class="help-description">May the best color win!</p>
+  </div>
 </div>
 
-<div
-  class="menu"
-  *ngIf="this.activeMenu === ActiveMenuEnum.HelpMenu"
-  [ngClass]="{
-    'left-side-slide-in': this.activeMenu === ActiveMenuEnum.HelpMenu,
-    'left-side-slide-out': this.activeMenu !== ActiveMenuEnum.HelpMenu
-  }"
->
-  <div class="game-title">Help</div>
-
-  <i
-    class="pi pi-chevron-left back-button"
-    (click)="this.activeMenu = ActiveMenuEnum.MainMenu"
-  ></i>
-  <p class="help-description">
-    Win the game by connecting four tokens of your color in a row. <br />
-    You can use the mouse button or number keys to set tokens. <br />
-  </p>
-  <p class="help-description">May the best color win!</p>
-</div>
 <p-toast></p-toast>
