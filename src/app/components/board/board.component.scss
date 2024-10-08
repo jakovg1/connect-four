@@ -51,28 +51,13 @@
   animation: dropToken 250ms linear;
 }
 
-.red-background-color {
-  background-color: $red-player-color;
-}
-
-.blue-background-color {
-  background-color: $blue-player-color;
-}
-
-.red-color {
-  color: $red-player-color;
-}
-
-.blue-color {
-  color: $blue-player-color;
-}
-
 @keyframes dropToken {
   0% {
     translate: 0 -100vh;
   }
 
   100% {
+    translate: 0vh;
   }
 }
 

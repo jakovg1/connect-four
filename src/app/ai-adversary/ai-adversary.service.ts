@@ -3,6 +3,7 @@ import { BOARD_WIDTH, Difficulty } from '../components/board/board.constants';
 import { Board, BoardCell } from '../components/board/board.model';
 import { BoardService } from '../components/board/board.service';
 import { getRandomIntInRange } from '../utility/utils';
+import { MINMAX_WIN_SCORE } from './ai-adversary.constants';
 
 export interface PlayerMove {
   readonly column: number;
@@ -35,8 +36,6 @@ export class AiAdversaryService {
     return this._difficulty;
   }
 
-  public tree: any;
-
   private _maxDepth: number;
 
   constructor(private boardService: BoardService) {
@@ -45,16 +44,14 @@ export class AiAdversaryService {
   }
 
   public getNextMove(initialBoard: Board): number {
-    this.tree = {};
     const optimalMove = this.minimax(initialBoard, this._maxDepth);
     let { column } = optimalMove;
     return column;
   }
 
   private minimax(intialBoard: Board, depth: number): PlayerMove {
-    let result: any = {};
     if (depth == 0) {
-      const playerMove = { column: -1, score: 0 } as PlayerMove; //replace score 0 with heuristic!
+      const playerMove = { column: -1, score: 0 } as PlayerMove; //replace score 0 with heuristic?
       return playerMove;
     }
 
@@ -66,11 +63,11 @@ export class AiAdversaryService {
       if (winner !== undefined) {
         switch (winner) {
           case BoardCell.Player1:
-            return { column, score: -1_000_000 };
+            return { column, score: -MINMAX_WIN_SCORE };
           case BoardCell.Player2:
-            return { column, score: 1_000_000 };
+            return { column, score: MINMAX_WIN_SCORE };
           case BoardCell.Empty:
-            return { column, score: 0 };
+            return { column, score: MINMAX_WIN_SCORE / 2 }; // draw is better than losing
           default:
             return { column, score: 0 };
         }
@@ -79,7 +76,6 @@ export class AiAdversaryService {
       board.toggleTurnOfPlayer();
       const move = this.minimax(board, depth - 1);
       validMoves[column] = move;
-      result[column] = move;
     }
     let optimalMoveIndex: number;
     let minMaxFunction: Function;
@@ -97,7 +93,6 @@ export class AiAdversaryService {
     return {
       score: averageMoveScore,
       column: optimalMoveIndex,
-      ...result,
     } as PlayerMove;
   }
 
