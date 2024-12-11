@@ -1,6 +1,6 @@
 # Connect four
 
-A classic simple game of connecting 4 tokens of your color in a row to win!
+A classic game of connecting 4 tokens of your color in a row to win!
 Multiplayer or simple  [minimax AI](https://en.wikipedia.org/wiki/Minimax) opponent to play with.
 
 Made with Angular 16.
