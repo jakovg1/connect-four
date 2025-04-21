@@ -69,14 +69,16 @@
       Toggle game mode: {{ displayGameMode() }}
     </div>
     <div class="menu-item" (click)="this.resetHighscore()">Reset highscore</div>
-    <i
-      class="pi pi-chevron-left back-button"
+    <small
+      class="back-button"
       [ngClass]="{
         center: this.activeMenu === ActiveMenuEnum.SettingsMenu,
         top: this.activeMenu !== ActiveMenuEnum.SettingsMenu
       }"
       (click)="this.activeMenu = ActiveMenuEnum.MainMenu"
-    ></i>
+    >
+      &lt;
+    </small>
   </div>
 
   <!-- Help menu-->
@@ -89,14 +91,16 @@
   >
     <div class="game-title">Help</div>
 
-    <i
-      class="pi pi-chevron-left back-button"
+    <small
+      class="back-button"
       [ngClass]="{
         center: this.activeMenu === ActiveMenuEnum.HelpMenu,
         top: this.activeMenu !== ActiveMenuEnum.HelpMenu
       }"
       (click)="this.activeMenu = ActiveMenuEnum.MainMenu"
-    ></i>
+    >
+      &lt;
+    </small>
     <p class="help-description">
       Win the game by connecting four tokens of your color in a row. <br />
       You can use the mouse button or number keys to set tokens. <br />

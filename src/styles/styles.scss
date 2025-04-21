@@ -29,6 +29,11 @@ body {
   position: absolute;
   left: 40px;
   top: 40px;
-  font-size: 10vh;
+  font-size: 5vh;
   color: $light-misc;
+  cursor: pointer;
+  transition: color 300ms ease-in-out;
+  &:hover {
+    color: rgb(240, 247, 252);
+  }
 }
